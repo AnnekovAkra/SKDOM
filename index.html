@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>СК Ваш Дом | Премиум Строительство</title>
+    <!-- Подключение шрифтов и иконок -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Подключение стилей -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Шапка сайта с эффектом матового стекла -->
+    <header class="header-glass">
+        <div class="logo">СК ВАШ ДОМ</div>
+        <nav class="navigation">
+            <a href="#catalog" class="nav-link active">Каталог</a>
+            <a href="about.html" class="nav-link">О нас</a>
+            <a href="portfolio.html" class="nav-link">Портфолио</a>
+            <a href="contacts.html" class="nav-link">Контакты</a>
+        </nav>
+        <button class="btn-primary">Консультация</button>
+    </header>
+
+    <!-- Главный экран -->
+   <section class="hero-section">
+    <!-- Сама картинка заднего фона -->
+    <img src="img/Главный экран.png" alt="Премиум дом" class="hero-bg-img">
+    
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1 class="hero-title">Архитектура <br><span class="text-gradient">премиум-класса</span></h1>
+        <p class="hero-subtitle">Проектирование и строительство эксклюзивных загородных резиденций.</p>
+        <a href="#catalog" class="btn-scroll">Смотреть каталог ↓</a>
+    </div>
+</section>
+
+
+   
+
+<!-- Блок каталога с презентационным заголовком -->
+    <section id="catalog" class="my-catalog-section">
+        <div class="my-catalog-container">
+            
+            <!-- БЛОК ПРЕЗЕНТАЦИИ КАТАЛОГА -->
+            <div class="catalog-presentation">
+                <div class="presentation-badge">Наши проекты</div>
+                <h2 class="presentation-title">Архитектурные решения <span class="green-dot">«СК ВАШ ДОМ»</span></h2>
+                <p class="presentation-desc">Выберите категорию, чтобы изучить планировки, экстерьеры и комплектации премиальных резиденций.</p>
+                <div class="presentation-line"></div>
+            </div>
+
+
+
+        <!-- Собственный премиальный каталог бренда -->
+    <section id="catalog" class="my-catalog-section">
+        <div class="my-catalog-container">
+            
+            <div class="my-catalog-grid">
+                <!-- Карточка 1 -->
+                <div class="brand-card">
+                    <div class="brand-img-container">
+                        <img src="img/Бани.jpg" alt="Бани" class="brand-img">
+                        <!-- Стеклянная плашка теперь «наплывает» на фото снизу -->
+                        <div class="brand-glass-footer">
+                            <h3 class="brand-title">Бани</h3>
+                            <span class="brand-arrow">→</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Карточка 2 -->
+                <div class="brand-card">
+                    <div class="brand-img-container">
+                        <img src="img/проект S.jpg" alt="Проекты S" class="brand-img">
+                        <div class="brand-glass-footer">
+                            <h3 class="brand-title">Проекты "S"</h3>
+                            <span class="brand-arrow">→</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Карточка 3 -->
+                <div class="brand-card">
+                    <div class="brand-img-container">
+                        <img src="img/проект М.jpg" alt="Проекты M" class="brand-img">
+                        <div class="brand-glass-footer">
+                            <h3 class="brand-title">Проекты "M"</h3>
+                            <span class="brand-arrow">→</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Карточка 4 -->
+                <div class="brand-card">
+                    <div class="brand-img-container">
+                        <img src="img/проект L.jpg" alt="Проекты L" class="brand-img">
+                        <div class="brand-glass-footer">
+                            <h3 class="brand-title">Проекты "L"</h3>
+                            <span class="brand-arrow">→</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Карточка 5 -->
+                <div class="brand-card">
+                    <div class="brand-img-container">
+                        <img src="img/проект XL.jpg" alt="Проекты XL" class="brand-img">
+                        <div class="brand-glass-footer">
+                            <h3 class="brand-title">Проекты "XL"</h3>
+                            <span class="brand-arrow">→</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+
+        <!-- Блок контактов и связи -->
+    <section id="contacts" class="contacts-section">
+        <div class="contacts-container">
+            
+            <!-- Левая часть: Информация и Стеклянная Форма -->
+            <div class="contacts-info-block">
+                <div class="contacts-badge">Связаться с нами</div>
+                <h2 class="contacts-title">Обсудить ваш <span class="green-text">проект</span></h2>
+                <p class="contacts-desc">Оставьте заявку, и наш главный архитектор свяжется с вами для персональной консультации.</p>
+                
+                <!-- Стеклянная форма захвата (Glassmorphism) -->
+                <form class="glass-contact-form" id="leadForm">
+                    <div class="form-group">
+                        <input type="text" id="userName" placeholder="Ваше имя" required class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" id="userPhone" placeholder="+7 (999) 000-00-00" required class="form-input">
+                    </div>
+                    <button type="submit" class="btn-form-submit">Отправить заявку</button>
+                </form>
+
+                <!-- Прямые контакты -->
+                <div class="direct-contacts">
+                    <div class="contact-item">
+                        <span class="contact-label">Телефон:</span>
+                        <a href="tel:+74950000000" class="contact-value">+7 (495) 000-00-00</a>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-label">Офис:</span>
+                        <span class="contact-value">г. Москва, Пресненская наб., 12</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Правая часть: Премиальная темная карта -->
+            <div class="contacts-map-block">
+                <div class="map-wrapper">
+                    <!-- Яндекс Карта с темным фильтром под стиль сайта -->
+                    <iframe src="https://yandex.ru" width="100%" height="100%" frameborder="0" allowfullscreen="true" class="yandex-map"></iframe>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Подвал сайта (Footer) -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <p class="footer-copy">&copy; 2026 СК ВАШ ДОМ. Все права защищены. Архитектура премиум-класса.</p>
+        </div>
+    </footer>
+
+
+    <!-- Подключение скриптов -->
+    <script src="script.js"></script>
+</body>
+</html>
