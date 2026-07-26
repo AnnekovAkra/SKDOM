@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О компании — СК ВАШ ДОМ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="portfolio-page-body dark-theme">
+
+    <!-- Топ-панель навигации (Сквозная, как на всех страницах) -->
+    <header class="header-glass dark-version">
+        <div class="logo"><a href="index.html" class="logo-link">СК ВАШ ДОМ</a></div>
+        <nav class="navigation">
+            <a href="index.html#catalog" class="nav-link">Каталог</a>
+            <a href="about.html" class="nav-link active">О нас</a>
+            <a href="portfolio.html" class="nav-link">Портфолио</a>
+            <a href="index.html#contacts" class="nav-link">Контакты</a>
+        </nav>
+        <!-- Автономный клик для мобилок, который мы вылизали -->
+        <div class="burger-menu" id="burgerToggle" onclick="this.classList.toggle('active'); document.querySelector('.navigation').classList.toggle('active'); event.stopPropagation();">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <a href="https://vk.ru/sk.vashdom"><button class="btn-primary">Консультация</button></a>
+    </header>
+
+    <!-- Главный блок презентации бренда -->
+    <section class="portfolio-hero">
+        <div class="portfolio-container">
+            <div class="portfolio-badge">Философия СК ВАШ ДОМ</div>
+            <h1 class="portfolio-main-title">Строим резиденции,<br>создающие <span class="accent-green-text">историю</span></h1>
+            <p class="about-lead-text">Мы отказались от типовых коробок в пользу сложной, бескомпромиссной архитектуры. Каждый наш проект — это манифест эргономики, передовых энергоэффективных технологий и премиального качества материалов.</p>
+        </div>
+    </section>
+
+    <!-- Блок сочных премиум-показателей (Цифры) -->
+    <section class="about-stats-section">
+        <div class="portfolio-container">
+            <div class="about-stats-grid">
+                <div class="about-stat-card">
+                    <span class="about-stat-num">12+</span>
+                    <span class="about-stat-text">Лет безупречного опыта в проектировании</span>
+                </div>
+                <div class="about-stat-card">
+                    <span class="about-stat-num">140</span>
+                    <span class="about-stat-text">Реализованных объектов бизнес-класса</span>
+                </div>
+                <div class="about-stat-card">
+                    <span class="about-stat-num">100%</span>
+                    <span class="about-stat-text">Технический надзор на каждом этапе</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Презентация стандартов качества (Плотное матовое стекло) -->
+    <section class="about-standards-section">
+        <div class="portfolio-container">
+            <div class="standards-layout">
+                
+                <!-- Левая сторона: Смыслы -->
+                <div class="standards-text-block">
+                    <h2 class="standards-heading">Почему нам доверяют<br>крупные заказчики</h2>
+                    <p class="standards-subheading">Мы берем на себя полную ответственность за весь цикл — от первых эскизов и инженерных изысканий до ландшафтного дизайна и сдачи объекта в эксплуатацию.</p>
+                </div>
+
+                <!-- Правая сторона: Роскошная стеклянная карточка -->
+                <div class="standards-glass-card">
+                    <ul class="standards-list">
+                        <li>
+                            <span class="list-bullet-dot"></span>
+                            <p><strong>Фиксированная смета:</strong> Стоимость строительства прописывается в договоре и не меняется ни на один рубль в процессе работы.</p>
+                        </li>
+                        <li>
+                            <span class="list-bullet-dot"></span>
+                            <p><strong>Премиум материалы:</strong> Используем только проверенный северный лес, экологичные утеплители и сертифицированную инженерию.</p>
+                        </li>
+                        <li>
+                            <span class="list-bullet-dot"></span>
+                            <p><strong>Прозрачный контроль:</strong> Владелец получает еженедельные фото и видео-отчеты с объекта, контролируя стройку со смартфона.</p>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Подвал сайта -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <p class="footer-copy">&copy; 2026 СК ВАШ ДОМ. Все права защищены. Архитектура и строительство премиум-класса.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

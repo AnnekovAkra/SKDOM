@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты — СК ВАШ ДОМ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="portfolio-page-body dark-theme">
+
+    <!-- Топ-панель навигации (Сквозная для всего сайта) -->
+    <header class="header-glass dark-version">
+        <div class="logo"><a href="index.html" class="logo-link">СК ВАШ ДОМ</a></div>
+        <nav class="navigation">
+            <a href="index.html#catalog" class="nav-link">Каталог</a>
+            <a href="about.html" class="nav-link">О нас</a>
+            <a href="portfolio.html" class="nav-link">Портфолио</a>
+            <a href="contacts.html" class="nav-link active">Контакты</a>
+        </nav>
+        <!-- Твой автономный бургер, который работает без сбоев -->
+        <div class="burger-menu" id="burgerToggle" onclick="this.classList.toggle('active'); document.querySelector('.navigation').classList.toggle('active'); event.stopPropagation();">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <a href="https://vk.ru/sk.vashdom"><button class="btn-primary">Консультация</button></a>
+    </header>
+
+    <!-- Главный блок контактов -->
+    <section class="contacts-page-section">
+        <div class="portfolio-container">
+   <!-- Главная секция контактов и формы -->
+<div class="main-feedback-section">
+    
+    <!-- Верхний блок с заголовками -->
+    <div class="feedback-header-block">
+        <span class="feedback-subtitle">Связь напрямую</span>
+        <h2 class="feedback-main-title">Обсудить ваш проект</h2>
+        <p class="feedback-description">Оставьте свои данные, и наш главный архитектор свяжется с вами для разбора планировки и расчета точной сметы резиденции.</p>
+    </div>
+
+    <!-- ДВУХКОЛОНОЧНАЯ СЕТКА -->
+    <div class="feedback-grid-container">
+        
+        <!-- ========================================================================= -->
+        <!-- 1. ЛЕВАЯ КОЛОНКА (Форма анкеты + Текстовые контакты в самом низу) -->
+        <!-- ========================================================================= -->
+        <div class="feedback-left-column">
+            
+            <!-- Форма захвата (анкета) -->
+            <form id="calcLeadForm" class="calc-submit-form" style="margin-bottom: 35px;">
+                <input type="text" id="calcUserName" placeholder="Ваше имя" required class="calc-input" style="width:100%; margin-bottom:12px; box-sizing:border-box;">
+                <input type="tel" id="calcUserPhone" placeholder="+7 (999) 000-00-00" required class="calc-input" style="width:100%; margin-bottom:15px; box-sizing:border-box;">
+                <button type="submit" class="btn-calc-submit" style="width:100%; box-sizing:border-box;">Отправить заявку</button>
+            </form>
+
+            <!-- Текстовые контакты (будут отображаться строго под анкетой слева) -->
+            <div class="text-contacts-list">
+                <div class="contact-text-item">
+                    <span class="contact-text-label">МЕСТО СВЯЗИ:</span>
+                    <a href="https://vk.ru/sk.vashdom" class="contact-text-value">ВК ГРУППА (Нажмите)</a>
+                </div>
+
+                <div class="contact-text-item">
+                    <span class="contact-text-label">ЦЕНТРАЛЬНЫЙ ОФИС:</span>
+                    <p class="contact-text-value">г. Химки, ул. Юннатов, д. 11, Москва</p>
+                </div>
+
+                <div class="contact-text-item">
+                    <span class="contact-text-label">ВРЕМЯ РАБОТЫ:</span>
+                    <p class="contact-text-value">Откроется в 9:00</p>
+                </div>
+            </div>
+
+        </div> <!-- КРИТИЧЕСКИ ВАЖНО: КОНЕЦ ЛЕВОЙ КОЛОНКИ -->
+
+        <!-- ========================================================================= -->
+        <!-- 2. ПРАВАЯ КОЛОНКА (Только карта, стоит напротив анкеты справа) -->
+        <!-- ========================================================================= -->
+        <div class="feedback-right-map-column">
+            <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3Ac89b801d9ea30cec030c2c495d9890a23a6b76fe5142abfc5ab99b317c0b161a&amp;source=constructor" frameborder="0" allowfullscreen="true" class="yandex-page-map"></iframe>
+        </div>
+
+    </div> <!-- Конец двухколоночной сетки -->
+
+</div>
+
+
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Подвал сайта -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <p class="footer-copy">&copy; 2026 СК ВАШ ДОМ. Все права защищены. Архитектура и строительство премиум-класса.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Разъяснения к проекту — СК ВАШ ДОМ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="portfolio-page-body dark-theme" style="position: relative;">
+
+    <!-- Сверхтехнологичный размытый премиум-фон (картинка подставится через JS) -->
+    <div class="info-bg-blur" id="infoDynamicBg"></div>
+
+    <section class="project-detail-section">
+        <div class="portfolio-container" style="max-width: 900px; margin: 0 auto; padding-top: 40px;">
+            
+            <div class="portfolio-badge" id="infoTopBadge">Техническая документация</div>
+            <h1 class="detail-title" style="margin-bottom: 30px;">Разъяснения к проекту <br><span class="accent-green-text" id="infoProjectName">Загрузка...</span></h1>
+            
+            <!-- Стеклянная карточка спецификаций -->
+            <div class="standards-glass-card">
+                
+                <!-- Блок 1 -->
+                <div class="calc-step-group" style="margin-bottom: 30px;">
+                    <label class="step-label" style="color: var(--accent-green); font-size: 18px;" id="blockTitle1">1. Основание и фундамент</label>
+                    <p style="color: rgba(255,255,255,0.7); line-height: 1.6; font-size: 15px; margin-top: 10px;" id="blockText1">
+                        Загрузка технических данных...
+                    </p>
+                </div>
+
+                <!-- Блок 2 -->
+                <div class="calc-step-group" style="margin-bottom: 30px;">
+                    <label class="step-label" style="color: var(--accent-green); font-size: 18px;" id="blockTitle2">2. Конструктив стен и каркас</label>
+                    <p style="color: rgba(255,255,255,0.7); line-height: 1.6; font-size: 15px; margin-top: 10px;" id="blockText2">
+                        Загрузка технических данных...
+                    </p>
+                </div>
+
+                <!-- Блок 3 -->
+                <div class="calc-step-group" style="margin-bottom: 30px;">
+                    <label class="step-label" style="color: var(--accent-green); font-size: 18px;" id="blockTitle3">3. Кровля и остекление</label>
+                    <p style="color: rgba(255,255,255,0.7); line-height: 1.6; font-size: 15px; margin-top: 10px;" id="blockText3">
+                        Загрузка технических данных...
+                    </p>
+                </div>
+
+                <!-- Блок 4 -->
+                <div class="calc-step-group">
+                    <label class="step-label" style="color: var(--accent-green); font-size: 18px;" id="blockTitle4">4. Инженерное обеспечение</label>
+                    <p style="color: rgba(255,255,255,0.7); line-height: 1.6; font-size: 15px; margin-top: 10px;" id="blockText4">
+                        Загрузка технических данных...
+                    </p>
+                </div>
+
+            </div>
+
+            <p class="plan-note" style="margin-top: 30px; text-align: center; color: rgba(255,255,255,0.3);">*Данные разъяснения адаптированы под выбранные архитектурные решения компании «СК ВАШ ДОМ».</p>
+        </div>
+    </section>
+
+       <!-- УМНЫЙ ДВИЖОК ИНДИВИДУАЛЬНЫХ СПЕЦИФИКАЦИЙ ДЛЯ 20 ПРОЕКТОВ -->
+    <script>
+         
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Получаем ID проекта из адресной строки
+            const urlParams = new URLSearchParams(window.location.search);
+            const projectId = parseInt(urlParams.get('id')) || 1;
+
+            // 2. БАЗА ДАННЫХ С ИНДИВИДУАЛЬНЫМИ ТЕКСТАМИ ПОД КАЖДЫЙ ДОМ И БАНЮ
+             const SPEC_DATABASE = {
+               1: {
+                    name: 'Баня 1 (Компакт-Студия 31 м²)',
+                    bg: 'img/1.jpg',
+                    b1: 'Обвязка: пакет из 3х досок 45×145мм.',
+                    b2: 'Половые лаги: сухая строганная доска 45х145мм, через 58-59см.',
+                    b3: 'Силовой каркас: стены сухая строганная доска 45х145мм; перегородки сухая строганная доска 45х90мм.',
+                    b4: 'Кровля:стропила 45х195мм;металлочерепица 0,45мм; подшив свесов; снегозадержатели; водосточная система.'
+                },
+                2: {
+                    name: 'Баня 2 (A-Frame Лаунж 42.2 м²)',
+                    bg: 'img/2.jpg',
+                    b1: 'Усиленный свайный фундамент под высокую треугольную кровлю. Двойная гидроизоляция обвязочного контура.',
+                    b2: 'А-фрейм каркас с шагом стропил 590 мм. Перекрестное утепление 200 мм под круглогодичное использование.',
+                    b3: 'Панорамное фасадное остекление в пол (закаленное стекло 6 мм). Кровля — кликфальц PRO Anthracite.',
+                    b4: 'Вентиляция «Басту». Чугунная печь-камин в облицовке из змеевика для мягкого пара.'
+                },
+                3: {
+                    name: 'Баня 3 (Эргономик-Классик 31.1 м²)',
+                    bg: 'img/3.jpg',
+                    b1: 'Железобетонные забивные сваи 150х150 мм. Обвязка пакетом сухой строганой доски.',
+                    b2: 'Традиционный силовой каркас. Раздельные зоны парной и мойки по 4.2 м² для максимального комфорта.',
+                    b3: 'Металлочерепица Grand Line Satin 0.5 мм. Окна REHAU 60мм с энергосбережением.',
+                    b4: 'Раздельные проливные полы в моечной. Печь «Гейзер 2014» с закрытой каменкой.'
+                },
+                4: {
+                    name: 'Баня 4 (Арктика с Тамбуром 29.5 м²)',
+                    bg: 'img/4.jpg',
+                    b1: 'Ж/б сваи с углублением на 3 метра. Полная ветрозащитная изоляция цокольного перекрытия.',
+                    b2: 'Утепление 200 мм. Наличие теплого тамбура (2 м²), отсекающего холодный воздух с улицы зимой.',
+                    b3: 'Мягкая кровля Shinglas (тихий купол). Пятикамерные морозостойкие окна REHAU 70 мм.',
+                    b4: 'Кухня и гостиная разделены на зоны по 9 м². Печь с выносным экраном в комнату отдыха.'
+                },
+                5: {
+                    name: 'Баня 5 (Премиум SPA-Комплекс 46.8 м²)',
+                    bg: 'img/5.jpg',
+                    b1: 'Монолитная ж/б плита с интегрированными теплыми полами во всех влажных зонах.',
+                    b2: 'Каркас премиум-класса. Гигантская парная (7.3 м²) и наличие отдельного сухого гардероба (3.1 м²).',
+                    b3: 'Премиальный кликфальц Line. Мультифункциональное остекление с зеркальной тонировкой.',
+                    b4: 'Профессиональная вентиляция. Элитная печь в талькомагнезите с автоматическим генератором пара.'
+                },
+                6: {
+                    name: 'Дом Проект "S" (Семейный коттедж 64.43 м²)',
+                    bg: 'img/6.jpg',
+                    b1: 'Забивные ж/б сваи 150х150 мм. Опорные столбы террасы оборудованы компенсаторами усадки.',
+                    b2: 'Две изолированные спальни (9.5 и 8.3 м²). Наличие выделенной бойлерной/техпомещения (1.75 м²).',
+                    b3: 'Металлочерепица Grand Line 0.5 мм. Окна REHAU Grazio 70 мм (немецкая фурнитура Roto).',
+                    b4: 'Скрытая разводка труб водоснабжения Rehau полиэтилен. Электрика ГОСТ в металлорукаве.'
+                },
+                7: {
+                    name: 'Дом Проект "M" (Брус-Экстра 65.62 м²)',
+                    bg: 'img/7.jpg',
+                    b1: 'Усиленный фундамент из ж/б свай под массивные деревянные стены. Межвенцовый утеплитель — джут.',
+                    b2: 'Стены из профилированного бруса камерной сушки 140х190 мм. Огромная общая дневная зона (19.57 м²).',
+                    b3: 'Кликфальц Грандлайн. Окна ПВХ с обсадными коробками (окосячкой) для защиты от усадки.',
+                    b4: 'Возможность установки печи-камина в гостиной. Скрытая разводка электрики в чашах бруса.'
+                },
+                8: {
+                    name: 'Дом Проект "L" (Крестообразный Хай-Тек 55.7 м²)',
+                    bg: 'img/8.jpg',
+                    b1: 'Свайно-ростверковый ж/б фундамент. Абсолютно плоская кровля с внутренним водостоком.',
+                    b2: 'Необычная крестообразная планировка. Огромный санузел (6.72 м²) и выделенная кухонная ниша.',
+                    b3: 'Полимерная мембрана на кровле Logicroof. Окна REHAU Intelio 80 мм (максимальная тишина).',
+                    b4: 'Подготовка под водяные теплые полы по всей площади. Щит Schneider Electric автоматика.'
+                },
+                9: {
+                    name: 'Дом Проект "XL" (Люкс Вилла 61.52 м²)',
+                    bg: 'img/9.jpg',
+                    b1: 'Монолитный фундамент. Две независимые террасы: гостевая (9.3 м²) и приватная кофейная (4.5 м²).',
+                    b2: 'Hi-Tech каркас 200 мм. Две раздельные спальни (12.3 и 8.6 м²), разнесенные по разным краям дома.',
+                    b3: 'Премиальный фальцевый профиль. Энергоэффективные панорамные стеклопакеты с аргоном.',
+                    b4: 'Полноценная ванна в санузле 6.72 м². Подготовка под установку умного дома и кондиционирования.'
+                },
+                10: {
+                    name: 'Дом Скандинавский A-Frame (46 м²)',
+                    bg: 'img/10.jpg',
+                    b1: 'Свайное поле с усиленной обвязкой двутавровыми балками для компенсации ветровых нагрузок.',
+                    b2: 'Треугольный каркас, высота конька 6 метров. Наличие спальной антресоли (второго света) на 10 м².',
+                    b3: 'Кликфальц PRO 0.5 мм от конька до земли. Трапециевидное теплое остекление фасада.',
+                    b4: 'Конвекторная система отопления. Компактная разводка ХВС/ГВС под лестничным маршем.'
+                }
+            };
+
+            // Заглушка для проектов 11-20 (подтягивают данные базовых линеек)
+            for (let i = 11; i <= 20; i++) {
+                if (i === 11 || i === 14 || i === 16 || i === 18 || i === 20) {
+                    SPEC_DATABASE[i] = { name: `Премиум-Резиденция №${i}`, bg: `img/${i}.jpg`, b1: SPEC_DATABASE[8].b1, b2: SPEC_DATABASE[9].b2, b3: SPEC_DATABASE[8].b3, b4: SPEC_DATABASE[9].b4 };
+                } else if (i === 12 || i === 15) {
+                    SPEC_DATABASE[i] = { name: `Элитное Шале №${i}`, bg: `img/${i}.jpg`, b1: SPEC_DATABASE[7].b1, b2: SPEC_DATABASE[7].b2, b3: SPEC_DATABASE[7].b3, b4: SPEC_DATABASE[7].b4 };
+                } else if (i === 13 || i === 19) {
+                    SPEC_DATABASE[i] = { name: `SPA-Комплекс №${i}`, bg: `img/${i}.jpg`, b1: SPEC_DATABASE[5].b1, b2: SPEC_DATABASE[5].b2, b3: SPEC_DATABASE[5].b3, b4: SPEC_DATABASE[5].b4 };
+                } else {
+                    SPEC_DATABASE[i] = { name: `Загородный Коттедж №${i}`, bg: `img/${i}.jpg`, b1: SPEC_DATABASE[6].b1, b2: SPEC_DATABASE[6].b2, b3: SPEC_DATABASE[6].b3, b4: SPEC_DATABASE[6].b4 };
+                }
+            }
+
+            // 3. Вытаскиваем нужный объект из нашей текстовой базы
+            const currentItem = SPEC_DATABASE[projectId] || SPEC_DATABASE[1];
+
+            // 4. ДИНАМИЧЕСКИ ПЕРЕКРАШИВАЕМ РАЗМЫТЫЙ ФОН СТРАНИЦЫ
+            const bgElement = document.getElementById('infoDynamicBg');
+            if (bgElement) {
+                bgElement.style.backgroundImage = `url('${currentItem.bg}')`;
+            }
+
+            // 5. ВЫВОДИМ ИНДИВИДУАЛЬНЫЙ ТЕКСТ НА ЭКРАН КЛИЕНТУ
+            document.getElementById('infoProjectName').innerText = currentItem.name;
+            document.getElementById('blockText1').innerText = currentItem.b1;
+            document.getElementById('blockText2').innerText = currentItem.b2;
+            document.getElementById('blockText3').innerText = currentItem.b3;
+            document.getElementById('blockText4').innerText = currentItem.b4;
+
+            // Корректируем заголовки блоков в зависимости от типа объекта (Дом или Баня)
+            if (projectId <= 5 || projectId === 13) {
+                document.getElementById('infoTopBadge').innerText = 'ТЕХНИЧЕСКИЕ РАЗЪЯСНЕНИЯ К БАНЕ';
+                document.getElementById('blockTitle1').innerText = '1. Фундамент и гидроизоляция слива пола';
+                document.getElementById('blockTitle2').innerText = '2. Конструктив парной и термоизоляция';
+                document.getElementById('blockTitle3').innerText = '3. Печное оборудование и дымоходный узел';
+                document.getElementById('blockTitle4').innerText = '4. Системы приточно-вытяжной вентиляции';
+            } else {
+                document.getElementById('infoTopBadge').innerText = 'ТЕХНИЧЕСКИЕ РАЗЪЯСНЕНИЯ К ДОМУ';
+                document.getElementById('blockTitle1').innerText = '1. Основание и прочный фундамент';
+                document.getElementById('blockTitle2').innerText = '2. Энергоэффективные ПМЖ-стены и перекрытия';
+                document.getElementById('blockTitle3').innerText = '3. Оконные системы REHAU и кровельный пирог';
+                document.getElementById('blockTitle4').innerText = '4. Отопление, щит автоматики и инженерия';
+            }
+        });
+    </script>
+
+
+</body>
+</html>

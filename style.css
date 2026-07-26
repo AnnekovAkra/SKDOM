@@ -1,0 +1,3328 @@
+/* Полностью убираем вылеты элементов и боковую черную полосу на смартфонах */
+html, body {
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth !important; /* Включает плавный премиальный скролл по всему сайту */
+}
+
+
+/* Базовые сбросы и переменные бренда */
+:root {
+    --bg-black: #0d0f0e;
+    --text-white: #ffffff;
+    --accent-green: #2e7d32;
+    --accent-green-glow: #4caf50;
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-blur: blur(12px);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--bg-black);
+    color: var(--text-white);
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+.container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+/* Эффект матового стекла (Glassmorphism) */
+.header-glass {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 1360px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    z-index: 1000;
+}
+
+.logo {
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: 2px;
+}
+
+.navigation .nav-link {
+    color: var(--text-white);
+    text-decoration: none;
+    margin: 0 20px;
+    font-size: 14px;
+    transition: color 0.3s;
+}
+
+.navigation .nav-link:hover, .navigation .nav-link.active {
+    color: var(--accent-green-glow);
+}
+
+/* Кнопки */
+.btn-primary {
+    background: var(--accent-green);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s, box-shadow 0.3s;
+}
+
+.btn-primary:hover {
+    background: var(--accent-green-glow);
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.4);
+}
+
+/* Главный экран */
+/* Главный экран */
+.hero-section {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-left: 10%;
+    overflow: hidden; /* Чтобы картинка не вылезала за границы экрана */
+}
+
+/* Стили для фоновой картинки, чтобы она растягивалась как надо */
+.hero-bg-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Аналог background-size: cover */
+    object-position: center;
+    z-index: 0; /* Отправляем на самый задний план */
+}
+
+
+.hero-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(90deg, rgba(13,15,14,0.9) 30%, rgba(13,15,14,0.4) 100%);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 600px;
+}
+
+.hero-title {
+    font-size: 56px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.text-gradient {
+    color: var(--accent-green-glow);
+}
+
+.hero-subtitle {
+    font-size: 18px;
+    font-weight: 300;
+    margin-bottom: 40px;
+    opacity: 0.8;
+}
+
+.btn-scroll {
+    color: white;
+    text-decoration: none;
+    border-bottom: 2px solid var(--accent-green);
+    padding-bottom: 5px;
+    transition: color 0.3s;
+}
+
+.btn-scroll:hover {
+    color: var(--accent-green-glow);
+}
+
+/* Секция Каталога */
+.catalog-section {
+    padding: 100px 0;
+}
+
+.section-title {
+    font-size: 36px;
+    margin-bottom: 40px;
+    font-weight: 600;
+}
+
+.filter-bar-glass {
+    display: inline-flex;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    padding: 8px;
+    border-radius: 12px;
+    margin-bottom: 50px;
+}
+
+.filter-btn {
+    background: transparent;
+    border: none;
+    color: white;
+    padding: 10px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.3s;
+}
+
+.filter-btn.active {
+    background: var(--accent-green);
+}
+
+/* Сетка карточек */
+.catalog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+    gap: 30px;
+}
+
+.project-card {
+    position: relative;
+    height: 400px;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
+}
+
+.card-img {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.5s;
+}
+
+.project-card:hover .card-img {
+    transform: scale(1.05);
+}
+
+.card-info-glass {
+    position: absolute;
+    bottom: 20px;
+    left: 55%;
+    transform: translateX(-50%);
+    width: 90%;
+    background: rgba(13, 15, 14, 0.6);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    padding: 20px;
+    border-radius: 14px;
+}
+
+.card-info-glass h3 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.card-info-glass p {
+    font-size: 14px;
+    opacity: 0.7;
+    margin-bottom: 10px;
+}
+
+.card-price {
+    color: var(--accent-green-glow);
+    font-weight: 600;
+}
+/* Дополнительные стили для аккуратного каталога */
+.catalog-header {
+    margin-bottom: 35px;
+}
+
+.catalog-header .section-subtitle {
+    opacity: 0.6;
+    font-size: 16px;
+    margin-top: 10px;
+    font-weight: 300;
+}
+
+.catalog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 40px;
+    margin-bottom: 50px;
+}
+
+.card-tag {
+    display: inline-block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: rgba(46, 125, 50, 0.2);
+    color: var(--accent-green-glow);
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.card-specs {
+    font-size: 13px !important;
+    margin-bottom: 20px !important;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 15px;
+}
+
+.card-link {
+    color: var(--text-white);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+.card-link:hover {
+    color: var(--accent-green-glow);
+}
+
+/* Кнопка "Смотреть все" */
+.catalog-more-action {
+    text-align: center;
+    margin-top: 60px;
+}
+
+.btn-secondary-glass {
+    display: inline-block;
+    padding: 18px 40px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: var(--glass-blur);
+    color: var(--text-white);
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s;
+}
+
+.btn-secondary-glass:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: var(--accent-green-glow);
+    box-shadow: 0 0 20px rgba(76, 175, 80, 0.15);
+}
+/* Максимально четкие и сочные фоновые сферы без шумов */
+.neon-bg-blobs {
+    position: absolute;
+    top: -120px;
+    left: 0;
+    width: 100%;
+    height: 450px;
+    overflow: hidden;
+    z-index: 1;
+    pointer-events: none;
+    /* Включаем аппаратное ускорение для идеальной плавности */
+    transform: translate3d(0,0,0); 
+}
+
+.blob {
+    position: absolute;
+    border-radius: 50%;
+    /* Увеличиваем радиус размытия для идеальной мягкости переходов */
+    filter: blur(120px); 
+    opacity: 0.75;
+    will-change: transform;
+}
+
+.blob-1 {
+    top: -40px;
+    left: 12%;
+    width: 300px;
+    height: 300px;
+    background: linear-gradient(135deg, #bd7aff, #2563eb);
+}
+
+.blob-2 {
+    top: -60px;
+    right: 18%;
+    width: 320px;
+    height: 320px;
+    background: linear-gradient(135deg, #00FF87, #60e611);
+}
+
+/* ШАПКА ПОВЫШЕННОГО КАЧЕСТВА (Ultra HD Glass) */
+.glass-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 8%;
+    
+    /* Оптимальный баланс темноты и прозрачности */
+    background: rgba(15, 15, 15, 0.4); 
+    
+    /* Экстремальное сглаженное размытие (Apple Premium Look) */
+    backdrop-filter: blur(50px) saturate(200%);
+    -webkit-backdrop-filter: blur(50px) saturate(200%);
+    
+    /* Двойной контур (внутренний светлый и внешний темный) для эффекта объема */
+    box-shadow: 
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.15),
+        0 1px 0 0 rgba(0, 0, 0, 0.5);
+    border: none;
+    
+    /* Улучшение рендеринга шрифтов поверх стекла */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    
+    z-index: 1000;
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+/* Затемняющий слой — чуть темнее, а размытие мягче */
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    /* Сделали подложку немного темнее (0.65 и 0.75 вместо 0.5 и 0.6) */
+    background: linear-gradient(180deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.75) 100%);
+    
+    /* Уменьшили размытость до идеального баланса, чтобы дом был виден */
+    backdrop-filter: blur(5px); 
+    -webkit-backdrop-filter: blur(5px);
+    
+    z-index: 1;
+}
+/* Секция кастомного каталога */
+.my-catalog-section {
+    background: #0D0D0D; /* Абсолютный глубокий черный фон */
+    padding: 90px 8%;
+    position: relative;
+    z-index: 5;
+}
+
+.my-catalog-container {
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+/* Сетка в два столбца, как в ВК */
+.my-catalog-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px; /* Идеальный баланс расстояния между проектами */
+}
+
+/* Основа вашей уникальной карточки */
+.brand-card {
+    position: relative;
+    border-radius: 20px; /* Более мягкое, современное премиум-скругление */
+    overflow: hidden;
+    cursor: pointer;
+    background: #141416;
+    
+    /* Тонкая, едва заметная базовая окантовка */
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* Контейнер изображения */
+.brand-img-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9.5; /* Идеальные пропорции для архитектурных рендеров */
+    overflow: hidden;
+}
+
+.brand-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 🔥 ЭФФЕКТ МАТОВОГО СТЕКЛА: Роскошная нижняя плашка */
+.brand-glass-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    
+    /* Затемненное матовое стекло, перекрывающее низ фотографии */
+    background: rgba(15, 15, 17, 0.65); 
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    
+    /* Внутренний световой блик по верхней грани плашки */
+    border-top: 1px solid rgba(255, 255, 255, 0.1); 
+    transition: background 0.3s ease;
+}
+
+/* Заголовок внутри стекла */
+.brand-title {
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin: 0;
+}
+
+/* Минималистичная стрелочка перехода */
+.brand-arrow {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 18px;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+/* ✨ ИНТЕРАКТИВ ПРИ НАВЕДЕНИИ (Дорогой отклик интерфейса) */
+.brand-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-green); /* Включается чистая зеленая окантовка */
+    box-shadow: 0 20px 40px rgba(0, 230, 118, 0.12); /* Зеленое мягкое свечение вниз */
+}
+
+.brand-card:hover .brand-img {
+    transform: scale(1.03); /* Картинка за стеклом аккуратно приближается */
+}
+
+.brand-card:hover .brand-glass-footer {
+    background: rgba(15, 15, 17, 0.8); /* Стекло становится чуть глубже */
+}
+
+.brand-card:hover .brand-arrow {
+    color: var(--accent-green); /* Стрелочка загорается зеленым */
+    transform: translateX(4px); /* И слегка смещается вправо, приглашая кликнуть */
+}
+
+/* Мобильная адаптация */
+@media (max-width: 768px) {
+    .my-catalog-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .my-catalog-section {
+        padding: 50px 4%;
+    }
+}
+/* Стили для красивой презентации начала каталога */
+.catalog-presentation {
+    max-width: 800px;
+    margin-bottom: 60px; /* Отступ до начала самих карточек */
+    text-align: left;
+}
+
+/* Мелкий аккуратный верхний статус */
+.presentation-badge {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--accent-green);
+    margin-bottom: 16px;
+    font-weight: 600;
+}
+
+/* Крупный дорогой заголовок */
+.presentation-title {
+    color: #FFFFFF;
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 18px;
+    letter-spacing: -0.5px;
+}
+
+/* Фирменный зеленый акцент в названии */
+.green-text, .green-dot {
+    color: var(--accent-green);
+}
+
+/* Описание презентации */
+.presentation-desc {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 16px;
+    line-height: 1.6;
+    max-width: 600px;
+    margin-bottom: 30px;
+}
+
+/* Тонкая минималистичная разделительная линия */
+.presentation-line {
+    width: 60px;
+    height: 2px;
+    background: var(--accent-green);
+    border-radius: 2px;
+}
+/* Секция Контактов */
+.contacts-section {
+    background: #0B0B0C; /* Еще более глубокий черный тон */
+    padding: 100px 8%;
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+    position: relative;
+    z-index: 5;
+}
+
+.contacts-container {
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 60px;
+    align-items: start;
+}
+
+.contacts-badge {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--accent-green);
+    margin-bottom: 16px;
+    font-weight: 600;
+}
+
+.contacts-title {
+    color: #FFFFFF;
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.contacts-desc {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 16px;
+    line-height: 1.6;
+    max-width: 500px;
+    margin-bottom: 40px;
+}
+
+/* Роскошная стеклянная форма */
+.glass-contact-form {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.08); /* Чистая аккуратная окантовка */
+    padding: 30px;
+    border-radius: 16px;
+    max-width: 500px;
+    margin-bottom: 40px;
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.glass-contact-form:focus-within {
+    border-color: var(--accent-green); /* Окантовка становится зеленой при заполнении */
+    box-shadow: 0 10px 30px rgba(0, 230, 118, 0.08);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-input {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 16px 20px;
+    border-radius: 8px;
+    color: #FFFFFF;
+    font-size: 15px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.form-input:focus {
+    border-color: var(--accent-green);
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* Кнопка отправки формы */
+.btn-form-submit {
+    width: 100%;
+    background: var(--accent-green);
+    color: #000000;
+    border: none;
+    padding: 16px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.btn-form-submit:hover {
+    background: #00c864;
+    transform: translateY(-2px);
+}
+
+/* Блок текстовых контактов */
+.direct-contacts {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.contact-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.contact-label {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.contact-value {
+    color: #FFFFFF;
+    font-size: 16px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+a.contact-value:hover {
+    color: var(--accent-green);
+}
+
+/* Интеграция карты */
+.contacts-map-block {
+    width: 100%;
+    height: 100%;
+    min-height: 450px;
+}
+
+.map-wrapper {
+    width: 100%;
+    height: 480px;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    /* Стильный темный фильтр для карты, чтобы она вписывалась в дизайн */
+    filter: grayscale(1) invert(0.92) contrast(1.2);
+}
+
+/* Подвал (Footer) */
+.site-footer {
+    background: #060607;
+    padding: 30px 8%;
+    border-top: 1px solid rgba(255, 255, 255, 0.02);
+    text-align: center;
+}
+
+.footer-container {
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.footer-copy {
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 13px;
+}
+
+/* Адаптация */
+@media (max-width: 992px) {
+    .contacts-container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    .contacts-map-block {
+        min-height: 350px;
+    }
+    .map-wrapper {
+        height: 350px;
+    }
+}
+.about-page-body {
+    background: #ffffff;
+    color: #1a1a1a;
+    padding-top: 90px; /* Фиксированный аккуратный отступ под шапку */
+}
+/* Принудительный темный стиль шапки на светлой странице */
+.glass-header.dark-version {
+    background: rgba(15, 15, 15, 0.95) !important; /* Плотное темное стекло */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Читаемость логотипа и меню на темной плашке */
+.glass-header.dark-version .logo-link {
+    color: #FFFFFF !important;
+}
+
+.glass-header.dark-version .nav-item {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.glass-header.dark-version .nav-item:hover,
+.glass-header.dark-version .nav-item.active {
+    color: var(--accent-green) !important; /* Активный пункт подсвечивается зеленым */
+}
+
+/* Контентная часть */
+.about-hero {
+    padding: 120px 8% 60px 8%;
+}
+
+.about-badge {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #00c864; 
+    margin-bottom: 24px;
+    font-weight: 600;
+}
+
+.about-main-title {
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -1.5px;
+    margin-bottom: 35px;
+    color: #1a1a1a;
+}
+
+.about-lead-text {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #4a4a4a;
+    max-width: 850px;
+}
+
+/* Сетка цифр с ровными отступами */
+.about-stats-section {
+    padding: 60px 8% 100px 8%;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+}
+
+.stat-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.stat-number {
+    font-size: 54px;
+    font-weight: 700;
+    color: #1a1a1a;
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 14px;
+    color: #666666;
+    line-height: 1.5;
+}
+/* Полные стили для нижней черной секции страницы «О нас» */
+.about-principles {
+    background: #0D0D0D;
+    color: #ffffff;
+    padding: 120px 8%;
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.principles-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+}
+
+.principles-title {
+    font-size: clamp(32px, 4vw, 46px);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 28px;
+    letter-spacing: -0.5px;
+    color: #FFFFFF;
+}
+
+.principles-desc {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.principles-subdesc {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Наше фирменное матовое стекло */
+.principles-glass-card {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 45px;
+    border-radius: 20px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+}
+
+.glass-card-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 30px;
+    color: #FFFFFF;
+    letter-spacing: 0.5px;
+}
+
+.principles-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.principles-list li {
+    font-size: 15px;
+    position: relative;
+    padding-left: 28px;
+    margin-bottom: 24px;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.5;
+}
+
+.principles-list li:last-child {
+    margin-bottom: 0;
+}
+
+/* Зеленый акцент на заголовках внутри списка */
+.list-highlight {
+    color: var(--accent-green);
+    font-weight: 600;
+    display: inline-block;
+    margin-right: 4px;
+}
+
+/* Зеленый маркер-точка у списков */
+.principles-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 6px;
+    height: 6px;
+    background: var(--accent-green);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--accent-green);
+}
+
+/* Мобильная адаптация */
+@media (max-width: 992px) {
+    .principles-layout {
+        grid-template-columns: 1fr;
+        gap: 50px;
+    }
+    .principles-glass-card {
+        padding: 30px;
+    }
+}
+/* --- СТИЛИЗАЦИЯ КНОПОК ДЛЯ ШАПКИ НА СТРАНИЦЕ «О НАС» --- */
+
+/* --- СУПЕР-ПРЕМИУМ ШАПКА: УВЕЛИЧЕННЫЕ РАЗМЕРЫ И РАССТОЯНИЯ --- */
+
+.glass-header.dark-version {
+    background: rgba(15, 15, 15, 0.96) !important;
+    /* Увеличили верхний и нижний отступы с 20px до 32px для солидной высоты */
+    padding: 32px 8% !important; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 6px 40px rgba(0, 0, 0, 0.25);
+}
+
+/* Увеличили логотип компании */
+.glass-header.dark-version .logo-link {
+    font-size: 24px !important; /* Было 20px */
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+/* Расстояния между пунктами меню */
+.glass-header.dark-version .nav-links {
+    display: flex !important;
+    gap: 45px !important; /* Увеличили шаг между ссылками с 35px до 45px */
+    align-items: center;
+}
+
+/* Увеличили размер шрифта для пунктов меню */
+.glass-header.dark-version .nav-item {
+    color: rgba(255, 255, 255, 0.8) !important;
+    text-decoration: none;
+    font-weight: 600; /* Сделали шрифт чуть плотнее */
+    font-size: 16px !important; /* Было 14px */
+    letter-spacing: 0.5px;
+    padding: 6px 0;
+    white-space: nowrap;
+    transition: color 0.3s ease;
+}
+
+/* Масштабируем зеленую кнопку под новые пропорции */
+.glass-header.dark-version .btn-consultation {
+    background: var(--accent-green) !important;
+    color: #000000 !important;
+    border: none !important;
+    /* Сделали кнопку выше и шире (было 12px 28px) */
+    padding: 16px 36px !important; 
+    border-radius: 8px !important; /* Чуть увеличили скругление углов */
+    font-size: 16px !important; /* Было 14px */
+    font-weight: 700 !important; /* Сделали текст кнопки жирным */
+    cursor: pointer;
+    white-space: nowrap;
+    box-shadow: 0 4px 20px rgba(0, 230, 118, 0.25);
+    transition: all 0.3s ease !important;
+}
+
+.glass-header.dark-version .btn-consultation:hover {
+    background: #00c864 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 25px rgba(0, 230, 118, 0.35);
+}
+/* --- МОБИЛЬНАЯ АДАПТАЦИЯ ДЛЯ ВСЕХ ВЕРСИЙ ШАПКИ --- */
+
+@media (max-width: 992px) {
+    /* Уменьшаем высоту шапки на мобильных, чтобы не красть экран */
+    .glass-header, 
+    .glass-header.dark-version {
+        padding: 16px 5% !important;
+    }
+
+    .glass-header .logo-link,
+    .glass-header.dark-version .logo-link {
+        font-size: 18px !important; /* Компактный размер логотипа */
+    }
+
+    /* Скрываем стандартную кнопку консультации на мелких экранах (перенесем её внутрь меню) */
+    .glass-header .btn-consultation,
+    .glass-header.dark-version .btn-consultation {
+        display: none !important; 
+    }
+
+    /* Создаем иконку бургера (три полоски) */
+    .burger-menu {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 26px;
+        height: 18px;
+        cursor: pointer;
+        z-index: 1100;
+    }
+
+    .burger-menu .bar {
+        width: 100%;
+        height: 2px;
+        background-color: #FFFFFF;
+        border-radius: 2px;
+        transition: all 0.3s ease;
+    }
+
+    /* Анимация превращения бургера в крестик при активации */
+    .burger-menu.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    .burger-menu.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+    .burger-menu.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    /* Превращаем навигацию в выезжающую полноэкранную стеклянную панель */
+    .glass-header .nav-links,
+    .glass-header.dark-version .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%; /* Изначально спрятано за экраном справа */
+        width: 80%; /* Занимает большую часть экрана при выезде */
+        height: 100vh;
+        background: rgba(15, 15, 15, 0.98) !important;
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center;
+        align-items: center;
+        gap: 35px !important;
+        box-shadow: -10px 0 40px rgba(0,0,0,0.5);
+        transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        z-index: 1050;
+    }
+
+    /* Показываем меню, когда добавлен класс active через JS */
+    .glass-header .nav-links.active,
+    .glass-header.dark-version .nav-links.active {
+        right: 0;
+    }
+
+    /* Крупные мобильные ссылки для удобного нажатия пальцем */
+    .glass-header .nav-item,
+    .glass-header.dark-version .nav-item {
+        font-size: 20px !important;
+        font-weight: 600;
+        color: #FFFFFF !important;
+        width: 100%;
+        text-align: center;
+        padding: 10px 0;
+    }
+}
+
+/* Десктопный бургер изначально скрыт */
+@media (min-width: 993px) {
+    .burger-menu {
+        display: none;
+    }
+}
+/* Адаптивные стили для экранов смартфона (до 768px) */
+@media screen and (max-width: 768px) {
+  
+  /* 1. Предотвращаем вылет текста за края */
+  h1, h2, .main-title {
+    font-size: 28px !important; /* Уменьшаем размер шрифта */
+    line-height: 1.2;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal !important; /* Разрешаем перенос строк */
+  }
+
+  /* 2. Делаем контейнер гибким и добавляем отступы по бокам */
+  .container, .header, main {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  /* 3. Перестраиваем шапку (логотип, меню, кнопка) в столбик */
+  .header-navigation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px; /* Расстояние между элементами */
+  }
+
+  /* 4. Пункты меню выстраиваем горизонтально или скрываем */
+  .menu-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    padding: 0;
+  }
+
+  /* 5. Кнопка "Консультация" на всю ширину для удобного клика пальцем */
+  .cta-button, .consultation-btn {
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+  }
+}
+/* --- СТИЛИ ДЛЯ КНОПКИ-ГАМБУРГЕРА И МОБИЛЬНОЙ ВЕРСИИ --- */
+
+/* По умолчанию на компьютерах гамбургер полностью скрыт */
+.burger-menu {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 26px;
+    height: 18px;
+    cursor: pointer;
+    z-index: 2000; /* Чтобы гамбургер был всегда поверх выезжающего меню */
+}
+
+.burger-menu .bar {
+    width: 100%;
+    height: 2px;
+    background-color: #FFFFFF; /* Цвет полосок */
+    border-radius: 2px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Анимация превращения гамбургера в аккуратный крестик при открытии */
+.burger-menu.active .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+.burger-menu.active .bar:nth-child(2) {
+    opacity: 0;
+    transform: translateX(-20px);
+}
+.burger-menu.active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+
+/* --- ЖЕСТКИЙ ФИКС ГОРИЗОНТАЛЬНОГО СКРОЛЛА И ЧЕРНОЙ ПОЛОСЫ --- */
+
+@media (max-width: 992px) {
+    /* 1. Запрещаем шапке растягивать экран */
+    .header-glass {
+        padding: 16px 20px !important;
+        height: 75px !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        box-sizing: border-box !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+    }
+
+    .logo {
+        font-size: 18px !important;
+        white-space: nowrap !important;
+    }
+
+    .burger-menu {
+        display: flex !important;
+    }
+
+    .header-glass .btn-primary {
+        display: none !important;
+    }
+
+    /* 2. ИСПРАВЛЕННОЕ МЕНЮ: Больше никаких сдвигов вправо! */
+    .header-glass .navigation {
+        position: fixed !important;
+        top: 0;
+        left: 0 !important; /* Стоит ровно по центру экрана */
+        width: 100% !important;
+        height: 100vh !important;
+        background: rgba(13, 13, 15, 0.98) !important;
+        backdrop-filter: blur(30px) !important;
+        -webkit-backdrop-filter: blur(30px) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 35px !important;
+        
+        /* ПОЛНОЕ СКРЫТИЕ БЕЗ ВЫЛЕТА ЗА ЭКРАН */
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important; /* Игнорирует клики в закрытом состоянии */
+        
+        transition: opacity 0.3s ease, visibility 0.3s ease !important;
+        z-index: 1500 !important;
+    }
+
+    /* Когда гамбургер нажат — меню просто плавно проявляется */
+    .header-glass .navigation.active {
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+    }
+
+    .header-glass .nav-link {
+        font-size: 22px !important;
+        font-weight: 600 !important;
+        color: #FFFFFF !important;
+        display: block !important;
+        text-align: center !important;
+        width: 100% !important;
+        padding: 10px 0 !important;
+    }
+    
+    .header-glass .nav-link.active {
+        color: #00E676 !important;
+    }
+}
+
+/* 3. ДОПОЛНИТЕЛЬНЫЙ ЖЕСТКИЙ ФИКС ДЛЯ ВСЕХ ОСТАЛЬНЫХ СЕКЦИЙ (КАТАЛОГ, ГЛАВНЫЙ) */
+@media (max-width: 768px) {
+    .hero-section,
+    .my-catalog-section,
+    .catalog-section,
+    .contacts-section {
+        width: 100% !important;
+        max-width: 100vw !important;
+        overflow: hidden !important; /* Срезает любые случайные вылеты картинок или блоков */
+        box-sizing: border-box !important;
+    }
+}
+/* =========================================================================
+   ФИНАЛЬНЫЙ ТЕМНЫЙ СТИЛЬ ПОРТФОЛИО С ЖЕСТКИМ ВЫРАВНИВАНИЕМ КАРТОЧЕК
+   ========================================================================= */
+
+.portfolio-page-body.dark-theme {
+    background: #09090A !important;
+    color: #FFFFFF !important;
+    padding-top: 120px;
+}
+
+.portfolio-hero {
+    padding: 60px 8% 40px 8%;
+}
+
+.accent-green-text {
+    color: var(--accent-green);
+}
+
+.portfolio-main-title {
+    font-size: clamp(34px, 5vw, 56px);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -1px;
+    margin-bottom: 50px;
+    color: #FFFFFF;
+}
+
+/* Кнопки-фильтры */
+.portfolio-filters {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.portfolio-filters .filter-btn {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.7);
+    padding: 14px 28px;
+    border-radius: 40px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.portfolio-filters .filter-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #FFFFFF;
+}
+
+.portfolio-filters .filter-btn.active {
+    background: rgba(0, 230, 118, 0.1);
+    color: var(--accent-green);
+    border-color: var(--accent-green);
+    box-shadow: 0 0 20px rgba(0, 230, 118, 0.15);
+}
+
+/* Сетка галереи */
+.portfolio-grid-section {
+    padding: 20px 8% 120px 8%;
+}
+
+.portfolio-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 40px !important;
+    align-items: start !important; /* Блокирует раздувание высоты соседних карт */
+}
+
+/* Объемный стеклянный бокс карточки */
+.portfolio-img-box {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #141416;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    isolation: isolate;
+    transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.portfolio-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.85;
+    transition: transform 0.6s ease, opacity 0.4s ease;
+}
+
+/* Идеально симметричная матовая плашка снизу карточки */
+.portfolio-glass-meta {
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 115px !important; /* Фиксированная высота для всех карточек */
+    padding: 20px 24px !important;
+    background: rgba(15, 15, 17, 0.75) !important;
+    backdrop-filter: blur(25px) saturate(140%);
+    -webkit-backdrop-filter: blur(25px) saturate(140%);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+}
+
+.item-tag {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--accent-green);
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+}
+
+.item-name {
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    margin-bottom: 4px !important;
+    color: #FFFFFF !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+.item-details {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Интерактив при наведении */
+.portfolio-item:hover .portfolio-img-box {
+    transform: translateY(-6px);
+    border-color: var(--accent-green);
+    box-shadow: 0 25px 50px rgba(0, 230, 118, 0.12);
+}
+
+.portfolio-item:hover .portfolio-img {
+    transform: scale(1.03);
+    opacity: 1;
+}
+
+/* Кнопка подгрузки */
+.portfolio-load-more-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 60px;
+}
+
+.btn-load-more {
+    background: transparent;
+    border: 1px solid var(--accent-green);
+    color: var(--accent-green);
+    padding: 16px 40px;
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-load-more:hover {
+    background: var(--accent-green);
+    color: #000000;
+    box-shadow: 0 6px 25px rgba(0, 230, 118, 0.3);
+    transform: translateY(-2px);
+}
+
+/* Фикс логотипа, чтобы не синел */
+.header-glass .logo-link {
+    color: #FFFFFF !important;
+    text-decoration: none !important;
+}
+
+/* Адаптация под смартфоны */
+@media (max-width: 768px) {
+    .portfolio-grid {
+        grid-template-columns: 1fr !important;
+        gap: 28px !important;
+    }
+    .portfolio-hero, .portfolio-grid-section {
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+    }
+}
+/* --- СТИЛИ ДЛЯ ВСТРОЕННОЙ АДМИНКИ --- */
+.admin-panel-section {
+    background: #070708;
+    padding: 60px 8% 100px 8%;
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+    
+    /* 🔥 ЖЕСТКОЕ СКРЫТИЕ ОТ ОБЫЧНЫХ КЛИЕНТОВ: */
+    display: none; 
+}
+
+/* Специальный класс, который включит админку только после ввода пароля */
+.admin-panel-section.unlocked {
+    display: block !important;
+}
+/* =========================================================================
+   ИСПРАВЛЕННЫЙ ПРЕМИУМ-СТИЛЬ ПОРТФОЛИО (3 В РЯД, РАЗМЫТИЕ И ЗАЛИВКА КНОПОК)
+   ========================================================================= */
+
+.portfolio-page-body.dark-theme {
+    background: #09090A !important;
+    color: #FFFFFF !important;
+    padding-top: 120px;
+}
+
+.portfolio-hero {
+    padding: 60px 8% 40px 8%;
+}
+
+.accent-green-text {
+    color: var(--accent-green);
+}
+
+.portfolio-main-title {
+    font-size: clamp(34px, 5vw, 56px);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -1px;
+    margin-bottom: 50px;
+    color: #FFFFFF;
+}
+
+/* --- ИСПРАВЛЕННЫЕ КНОПКИ (ЗАГОРУЮТСЯ ЗЕЛЕНЫМ ПОЛНОСТЬЮ) --- */
+.portfolio-filters {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.portfolio-filters .filter-btn {
+    background: transparent; /* Изначально полностью прозрачные */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.8);
+    padding: 12px 26px;
+    border-radius: 40px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Полная зеленая заливка при наведении */
+.portfolio-filters .filter-btn:hover {
+    background: var(--accent-green) !important;
+    color: #000000 !important; /* Текст становится черным */
+    border-color: var(--accent-green) !important;
+    box-shadow: 0 0 20px rgba(0, 230, 118, 0.3);
+}
+
+/* Активный выбранный таб */
+.portfolio-filters .filter-btn.active {
+    background: var(--accent-green) !important;
+    color: #000000 !important;
+    border-color: var(--accent-green) !important;
+}
+
+/* --- СЕТКА: 3 КАРТОЧКИ В РЯД (УМЕНЬШИЛИ РАЗМЕР) --- */
+.portfolio-grid-section {
+    padding: 20px 8% 120px 8%;
+}
+
+.portfolio-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important; /* Вместо repeat(2, 1fr) */
+    gap: 30px !important;
+    align-items: start !important;
+}
+
+/* --- КАРТИНКИ: СДЕЛАЛИ ВЫШЕ (aspect-ratio: 4/5) --- */
+.portfolio-img-box {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 5 !important; /* Карточки стали вертикальными и высокими */
+    border-radius: 20px;
+    overflow: hidden;
+    background: #141416;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    isolation: isolate;
+    transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.portfolio-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.85;
+    /* Добавили фильтр blur в переход */
+    transition: transform 0.6s ease, opacity 0.4s ease, filter 0.4s ease; 
+}
+
+/* --- ЭФФЕКТ НАВЕДЕНИЯ: КАРТИНКА РАЗМЫВАЕТСЯ (BLUR) --- */
+.portfolio-item:hover .portfolio-img {
+    transform: scale(1.05);
+    opacity: 0.6; /* Слегка притемняем для контраста текста */
+    filter: blur(5px); /* ТАК САМОЕ РАЗМЫТИЕ */
+}
+
+/* Стеклянная плашка внизу */
+.portfolio-glass-meta {
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 120px !important;
+    padding: 24px !important;
+    background: rgba(15, 15, 17, 0.65) !important;
+    backdrop-filter: blur(25px) saturate(140%);
+    -webkit-backdrop-filter: blur(25px) saturate(140%);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+}
+
+.item-tag {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--accent-green);
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+}
+
+.item-name {
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    margin-bottom: 4px !important;
+    color: #FFFFFF !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+.item-details {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.portfolio-item:hover .portfolio-img-box {
+    transform: translateY(-6px);
+    border-color: var(--accent-green);
+    box-shadow: 0 25px 50px rgba(0, 230, 118, 0.15);
+}
+
+/* Кнопка подгрузки */
+.portfolio-load-more-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 60px;
+}
+
+.btn-load-more {
+    background: transparent;
+    border: 1px solid var(--accent-green);
+    color: var(--accent-green);
+    padding: 16px 40px;
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-load-more:hover {
+    background: var(--accent-green);
+    color: #000000;
+    box-shadow: 0 6px 25px rgba(0, 230, 118, 0.3);
+    transform: translateY(-2px);
+}
+
+/* Мобильная адаптация: на телефонах возвращаем в 1 ряд */
+@media (max-width: 992px) {
+    .portfolio-grid {
+        grid-template-columns: repeat(2, 1fr) !important; /* На планшетах 2 в ряд */
+    }
+}
+
+@media (max-width: 576px) {
+    .portfolio-grid {
+        grid-template-columns: 1fr !important; /* На телефонах 1 в ряд */
+    }
+    .portfolio-hero, .portfolio-grid-section {
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+    }
+}
+/* --- КОРРЕКТИРОВКА: МАКСИМАЛЬНЫЙ КРУПНЫЙ РАЗМЕР КАРТОЧЕК ДЛЯ ПК --- */
+
+.portfolio-grid-section {
+    padding: 20px 8% 120px 8%;
+}
+
+.portfolio-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important; /* Строго 3 в ряд */
+    gap: 40px !important; /* Увеличили отступы под стать крупным картам */
+    align-items: start !important;
+    max-width: 1600px !important; /* Расширили сетку до 1600px, чтобы дать картам раскрыться */
+    margin: 0 auto !important;
+}
+
+/* Оболочка карточки: Крупный и массивный формат */
+.portfolio-img-box {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10 !important; /* Идеальное горизонтальное соотношение */
+    
+    /* ИСПРАВЛЕНО: Увеличили лимит до 500px, карточки стали по-настоящему большими */
+    max-width: 500px !important; 
+    margin: 0 auto !important;
+    
+    border-radius: 18px; /* Чуть увеличили скругление под крупный масштаб */
+    overflow: hidden;
+    background: #141416;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 25px 55px rgba(0, 0, 0, 0.5);
+    isolation: isolate;
+    transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.portfolio-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.85;
+    transition: transform 0.6s ease, opacity 0.4s ease, filter 0.4s ease; 
+}
+
+/* Мягкое размытие фокуса при наведении на огромную карту */
+.portfolio-item:hover .portfolio-img {
+    transform: scale(1.03); /* На крупной карте зум делаем чуть меньше, чтобы было аккуратно */
+    opacity: 0.5;
+    filter: blur(7px); /* Чуть глубже размытие для баланса */
+}
+
+/* Стеклянная плашка под новый гигантский размер */
+.portfolio-glass-meta {
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 110px !important; /* Сделали плашку чуть выше, чтобы текст не зажимался */
+    padding: 20px 28px !important;
+    background: rgba(15, 15, 17, 0.75) !important;
+    backdrop-filter: blur(25px) saturate(140%);
+    -webkit-backdrop-filter: blur(25px) saturate(140%);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    color: #ffffff;
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+}
+
+.item-tag {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--accent-green);
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    margin-bottom: 4px;
+}
+
+.item-name {
+    font-size: 20px !important; /* Увеличили шрифт под стать огромной карточке */
+    font-weight: 600 !important;
+    margin-bottom: 4px !important;
+    color: #FFFFFF !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+.item-details {
+    font-size: 14px; /* Чуть крупнее детализация */
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.portfolio-item:hover .portfolio-img-box {
+    transform: translateY(-6px);
+    border-color: var(--accent-green);
+    box-shadow: 0 25px 45px rgba(0, 230, 118, 0.2);
+}
+
+/* Мобильная адаптация под новые размеры */
+@media (max-width: 1400px) {
+    .portfolio-grid {
+        grid-template-columns: repeat(2, 1fr) !important; /* 2 в ряд на средних мониторах */
+        max-width: 100% !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .portfolio-grid {
+        grid-template-columns: 1fr !important; /* 1 в ряд на смартфонах */
+        gap: 28px !important;
+    }
+    .portfolio-img-box {
+        max-width: 100% !important;
+    }
+}
+/* --- КОРРЕКТИРОВКА: МАКСИМАЛЬНАЯ ВЫСОТА ИЗОБРАЖЕНИЯ ПРИ СТАТИЧНОЙ ШИРИНЕ --- */
+
+.portfolio-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 40px !important;
+    align-items: start !important;
+    max-width: 1600px !important; /* Ширина всей сетки заблокирована на ПК */
+    margin: 0 auto !important;
+}
+
+/* Оболочка карточки: Выжали максимум высоты по вертикали */
+.portfolio-img-box {
+    position: relative;
+    width: 100%;
+    
+    /* ИСПРАВЛЕНО: Сделали карточки еще выше, теперь архитектуру видно идеально */
+    aspect-ratio: 16 / 14 !important; 
+    
+    /* Внешние габариты по ширине намертво зажаты и не меняются */
+    max-width: 500px !important; 
+    margin: 0 auto !important;
+    
+    border-radius: 18px;
+    overflow: hidden;
+    background: #141416;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 25px 55px rgba(0, 0, 0, 0.5);
+    isolation: isolate;
+    transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* Стеклянная плашка снизу карточки */
+.portfolio-glass-meta {
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 110px !important; /* Высота плашки статична, она больше не зажимает фото */
+    padding: 20px 28px !important;
+    background: rgba(15, 15, 17, 0.75) !important;
+    backdrop-filter: blur(25px) saturate(140%);
+    -webkit-backdrop-filter: blur(25px) saturate(140%);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    color: #ffffff;
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+}
+/* --- ЖЕСТКИЙ ФИКС АДАПТИВНОСТИ КАРТОЧЕК НА СМАРТФОНАХ --- */
+
+@media (max-width: 768px) {
+    /* 1. Сетка встает строго по одному дому на весь экран */
+    .portfolio-grid {
+        grid-template-columns: 1fr !important;
+        gap: 30px !important;
+        max-width: 100% !important;
+        padding: 0 10px !important;
+    }
+
+    /* 2. СПАСАЕМ КАРТОЧКУ: Снимаем десктопные зажимы ширины и высоты */
+    .portfolio-img-box {
+        max-width: 100% !important; /* На телефоне карточка занимает всю ширину экрана */
+        width: 100% !important;
+        
+        /* Изменяем пропорцию на мобильную, чтобы картинка была крупной и высокой */
+        aspect-ratio: 4 / 3 !important; 
+        
+        border-radius: 14px !important;
+        margin: 0 auto !important;
+    }
+
+    /* 3. Картинка внутри растягивается правильно, без сжатия */
+    .portfolio-img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+    }
+
+    /* 4. Корректируем стеклянную плашку под мобильный экран */
+    .portfolio-glass-meta {
+        position: absolute !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: auto !important; /* На мобилке высота свободная, чтобы влез длинный текст */
+        min-height: 85px !important;
+        padding: 14px 16px !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Уменьшаем шрифты, чтобы названия не вылезали на телефонах */
+    .item-name {
+        font-size: 16px !important;
+        white-space: normal !important; /* Разрешаем перенос длинного имени на вторую строку */
+        overflow: visible !important;
+        text-overflow: clip !important;
+    }
+
+    .item-details {
+        font-size: 12px !important;
+        line-height: 1.3 !important;
+    }
+}
+/* --- СБРОС ФИОЛЕТОВОГО ЦВЕТА ССЫЛКИ «СМОТРЕТЬ КАТАЛОГ» --- */
+
+/* Намертво принуждаем ссылку быть белой, в любом состоянии */
+.btn-catalog-link, 
+.btn-catalog-link:visited, 
+.btn-catalog-link:link {
+    color: #FFFFFF !important; /* Строго белый цвет */
+    text-decoration: none !important; /* Убираем дефолтную линию, если она не нужна */
+    border-bottom: 1px solid var(--accent-green) !important; /* Наша аккуратная зеленая линия */
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    transition: color 0.3s ease !important;
+}
+
+/* Эффект при наведении */
+.btn-catalog-link:hover {
+    color: var(--accent-green) !important; /* Плавно загорается зеленым */
+}
+/* Исправленная плашка: даём место для цены */
+.portfolio-glass-meta {
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: auto !important; /* УБРАЛИ 110px, теперь высота подстраивается автоматически */
+    min-height: 115px !important; /* Минимальный порог, чтобы карточки не плясали */
+    padding: 16px 24px !important;
+    background: rgba(15, 15, 17, 0.75) !important;
+    backdrop-filter: blur(25px) saturate(140%);
+    -webkit-backdrop-filter: blur(25px) saturate(140%);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+}
+
+/* Стили для самой цены (если ещё не добавил) */
+.item-price {
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    color: var(--accent-green) !important; /* Наш сочный зелёный */
+    margin-top: 6px !important;
+    letter-spacing: 0.5px !important;
+}
+/* =========================================================================
+   РОСКОШНЫЕ ТЕМНЫЕ СТИЛИ ДЛЯ РАЗДЕЛА «О НАС»
+   ========================================================================= */
+
+/* Главный вводный текст */
+.about-lead-text {
+    font-size: 18px !important;
+    line-height: 1.6 !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+    max-width: 800px !important;
+    margin-top: -20px !important;
+}
+
+/* Сетка с цифрами */
+.about-stats-section {
+    padding: 20px 8% 60px 8%;
+}
+
+.about-stats-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 40px !important;
+    max-width: 1600px !important;
+    margin: 0 auto !important;
+}
+
+.about-stat-card {
+    background: rgba(255, 255, 255, 0.01) !important;
+    border: 1px solid rgba(255, 255, 255, 0.03) !important;
+    padding: 30px !important;
+    border-radius: 16px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.about-stat-num {
+    font-size: 48px !important;
+    font-weight: 800 !important;
+    color: var(--accent-green) !important; /* Цифры горят зеленым */
+    line-height: 1 !important;
+}
+
+.about-stat-text {
+    font-size: 14px !important;
+    color: rgba(255, 255, 255, 0.5) !important;
+    line-height: 1.4 !important;
+}
+
+/* Секция стандартов качества */
+.about-standards-section {
+    padding: 60px 8% 120px 8%;
+}
+
+.standards-layout {
+    display: grid !important;
+    grid-template-columns: 0.9fr 1.1fr !important;
+    gap: 60px !important;
+    max-width: 1600px !important;
+    margin: 0 auto !important;
+    align-items: center !important;
+}
+
+.standards-heading {
+    font-size: clamp(28px, 3.5vw, 42px) !important;
+    font-weight: 700 !important;
+    line-height: 1.2 !important;
+    color: #FFFFFF !important;
+    margin-bottom: 20px !important;
+}
+
+.standards-subheading {
+    font-size: 16px !important;
+    line-height: 1.6 !important;
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Стеклянная карточка стандартов */
+.standards-glass-card {
+    background: rgba(255, 255, 255, 0.02) !important;
+    backdrop-filter: blur(25px) saturate(140%) !important;
+    -webkit-backdrop-filter: blur(25px) saturate(140%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    border-radius: 20px !important;
+    padding: 40px !important;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+}
+
+.standards-list {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 24px !important;
+}
+
+.standards-list li {
+    display: flex !important;
+    gap: 16px !important;
+    align-items: start !important;
+}
+
+.standards-list li p {
+    font-size: 15px !important;
+    line-height: 1.5 !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+    margin: 0 !important;
+}
+
+.standards-list li strong {
+    color: #FFFFFF !important;
+}
+
+/* Зеленый неоновый маркер для списков */
+.list-bullet-dot {
+    width: 6px !important;
+    height: 6px !important;
+    background: var(--accent-green) !important;
+    border-radius: 50% !important;
+    margin-top: 8px !important;
+    flex-shrink: 0 !important;
+    box-shadow: 0 0 10px var(--accent-green) !important;
+}
+
+/* --- МОБИЛЬНАЯ АДАПТАЦИЯ ДЛЯ РАЗДЕЛА О НАС --- */
+@media (max-width: 992px) {
+    .about-stats-grid {
+        grid-template-columns: 1fr !important; /* Цифры встают в один ряд */
+        gap: 20px !important;
+    }
+    .standards-layout {
+        grid-template-columns: 1fr !important; /* Текст и стекло встают друг под друга */
+        gap: 40px !important;
+    }
+    .standards-glass-card {
+        padding: 24px !important;
+    }
+}
+/* =========================================================================
+   РОСКОШНЫЕ ТЕМНЫЕ СТИЛИ ДЛЯ РАЗДЕЛА «КОНТАКТЫ»
+   ========================================================================= */
+
+.contacts-page-section {
+    padding: 60px 8% 120px 8%;
+}
+
+.contacts-page-layout {
+    display: grid !important;
+    grid-template-columns: 1.1fr 0.9fr !important;
+    gap: 60px !important;
+    max-width: 1600px !important;
+    margin: 0 auto !important;
+    align-items: start !important;
+}
+
+.contacts-page-desc {
+    font-size: 16px !important;
+    line-height: 1.6 !important;
+    color: rgba(255, 255, 255, 0.5) !important;
+    max-width: 500px !important;
+    margin-top: -20px !important;
+    margin-bottom: 35px !important;
+}
+
+/* Форма из густого матового стекла */
+.contacts-glass-form {
+    background: rgba(255, 255, 255, 0.02) !important;
+    backdrop-filter: blur(20px) saturate(140%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(140%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    padding: 35px !important;
+    border-radius: 20px !important;
+    max-width: 500px !important;
+    margin-bottom: 45px !important;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.contacts-glass-form:focus-within {
+    border-color: var(--accent-green) !important;
+    box-shadow: 0 10px 30px rgba(0, 230, 118, 0.1) !important;
+}
+
+/* Реквизиты */
+.contacts-direct-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+}
+
+.direct-item {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+}
+
+.direct-label {
+    font-size: 11px !important;
+    color: rgba(255, 255, 255, 0.3) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+}
+
+.direct-value {
+    color: #FFFFFF !important;
+    font-size: 16px !important;
+    text-decoration: none !important;
+    font-weight: 500 !important;
+}
+
+a.direct-value:hover {
+    color: var(--accent-green) !important;
+}
+
+/* Блок Карты */
+.page-map-wrapper {
+    width: 100% !important;
+    height: 550px !important; /* Высокая солидная карта на ПК */
+    border-radius: 24px !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(255, 255, 255, 0.04) !important;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.5) !important;
+    /* Трендовый темный фильтр для карты */
+    filter: grayscale(1) invert(0.92) contrast(1.2) !important;
+}
+
+/* Мобильная адаптация контактов */
+@media (max-width: 992px) {
+    .contacts-page-layout {
+        grid-template-columns: 1fr !important; /* Всё встает в одну колонку */
+        gap: 40px !important;
+    }
+    .contacts-page-section {
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+    }
+    .contacts-glass-form {
+        padding: 24px !important;
+        max-width: 100% !important;
+    }
+    .page-map-wrapper {
+        height: 350px !important; /* Компактная карта на смартфонах */
+    }
+}
+/* =========================================================================
+   РОСКОШНЫЙ ТЕМНЫЙ ОНЛАЙН-КАЛЬКУЛЯТОР (GLASSMORPHISM)
+   ========================================================================= */
+.calc-section {
+    background: #0B0B0C;
+    padding: 100px 8%;
+    border-top: 1px solid rgba(255, 255, 255, 0.02);
+    position: relative;
+    z-index: 5;
+}
+
+.calc-badge {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--accent-green);
+    margin-bottom: 16px;
+    font-weight: 600;
+}
+
+.calc-main-title {
+    color: #FFFFFF;
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.calc-desc {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 16px;
+    max-width: 650px;
+    margin-bottom: 50px;
+}
+
+.calc-layout {
+    display: grid !important;
+    grid-template-columns: 1.1fr 0.9fr !important;
+    gap: 50px !important;
+    align-items: start !important;
+}
+
+.calc-step-group {
+    margin-bottom: 35px;
+}
+
+.step-label {
+    display: block;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+/* Сетка кнопок-вариантов */
+.calc-options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+}
+
+/* Полное скрытие стандартных кружков и галочек радио/чекбоксов */
+.calc-option input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* Кастомные матовые кнопки выбора */
+.option-custom-box {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.7);
+    padding: 16px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.calc-option:hover .option-custom-box {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #FFFFFF;
+}
+
+/* Сочное зеленое состояние кнопки, когда она выбрана */
+.calc-option input:checked + .option-custom-box {
+    background: rgba(0, 230, 118, 0.08) !important;
+    border-color: var(--accent-green) !important;
+    color: var(--accent-green) !important;
+    box-shadow: 0 0 15px rgba(0, 230, 118, 0.15);
+}
+
+/* Ползунок площади (Слайдер) */
+.range-labels {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.range-value-display {
+    color: var(--accent-green);
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.calc-range-slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    outline: none;
+}
+
+/* Кастомный зеленый кружок ползунка */
+.calc-range-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--accent-green);
+    cursor: pointer;
+    box-shadow: 0 0 10px var(--accent-green);
+    transition: transform 0.2s;
+}
+
+.calc-range-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+/* Стеклянное правое табло с итогом */
+.result-glass-card {
+    background: rgba(255, 255, 255, 0.02) !important;
+    backdrop-filter: blur(25px) saturate(140%) !important;
+    -webkit-backdrop-filter: blur(25px) saturate(140%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    border-radius: 20px !important;
+    padding: 40px !important;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+}
+
+.result-price-title {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+
+.result-price-display {
+    font-size: 42px;
+    font-weight: 800;
+    color: var(--accent-green);
+    line-height: 1.1;
+    margin-bottom: 12px;
+}
+
+.result-notice {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.result-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.06);
+    margin: 30px 0;
+}
+
+/* Форма сбора лидов из калькулятора */
+.calc-submit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.calc-input {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 16px;
+    border-radius: 8px;
+    color: #FFFFFF;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.calc-input:focus {
+    border-color: var(--accent-green);
+}
+
+.btn-calc-submit {
+    background: var(--accent-green);
+    color: #000000;
+    border: none;
+    padding: 18px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0, 230, 118, 0.2);
+    transition: all 0.3s ease;
+}
+
+.btn-calc-submit:hover {
+    background: #00c864;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0, 230, 118, 0.35);
+}
+
+/* Мобильный адаптив для калькулятора */
+@media (max-width: 992px) {
+    .calc-layout {
+        grid-template-columns: 1fr !important;
+        gap: 40px !important;
+    }
+    .calc-section {
+        padding: 60px 16px !important;
+    }
+    .result-glass-card {
+        padding: 24px !important;
+    }
+    .result-price-display {
+        font-size: 32px;
+    }
+}
+/* =========================================================================
+   СТИЛИ ДЛЯ ДИНАМИЧЕСКОЙ СТРАНИЦЫ ДЕТАЛЕЙ ПРОЕКТА
+   ========================================================================= */
+.project-detail-section { padding: 40px 8% 120px 8%; }
+.btn-back-link { display: inline-block; color: rgba(255,255,255,0.4); text-decoration: none; font-size: 14px; margin-bottom: 40px; transition: color 0.3s; }
+.btn-back-link:hover { color: var(--accent-green); }
+.detail-layout { display: grid !important; grid-template-columns: 1.1fr 0.9fr !important; gap: 60px !important; align-items: start !important; max-width: 1600px !important; margin: 0 auto !important; }
+.detail-main-img-box { width: 100%; aspect-ratio: 16 / 11; border-radius: 24px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); box-shadow: 0 30px 70px rgba(0,0,0,0.6); }
+.detail-main-img { width: 100%; height: 100%; object-fit: cover; }
+.detail-badge { font-size: 11px; text-transform: uppercase; color: var(--accent-green); font-weight: 700; letter-spacing: 2px; display: block; margin-bottom: 12px; }
+.detail-title { font-size: clamp(28px, 4vw, 46px); font-weight: 800; color: #FFFFFF; line-height: 1.15; margin-bottom: 16px; }
+.detail-price-tag { font-size: 32px; font-weight: 800; color: var(--accent-green); margin-bottom: 35px; }
+.detail-params-glass { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; padding: 24px; margin-bottom: 40px; }
+.param-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 14px; }
+.param-row:last-child { border: none; }
+.param-label { color: rgba(255,255,255,0.5); }
+.param-value { color: #FFFFFF; font-weight: 600; }
+.detail-plan-img-box { width: 100%; background: #FFFFFF; padding: 20px; border-radius: 16px; }
+.detail-plan-img { width: 100%; height: auto; display: block; object-fit: contain; }
+.btn-order-project { width: 100%; background: var(--accent-green); color: #000000; border: none; padding: 20px; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.3s ease; }
+.btn-order-project:hover { background: #00c864; transform: translateY(-2px); }
+
+/* Модальное окно */
+.order-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); display: flex; justify-content: center; align-items: center; z-index: 3000; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+.order-modal-overlay.active { opacity: 1; visibility: visible; }
+.order-modal-glass { background: rgba(20,20,22,0.85); border: 1px solid rgba(255,255,255,0.08); padding: 40px; border-radius: 24px; width: 90%; max-width: 460px; position: relative; }
+.modal-close-btn { position: absolute; top: 20px; right: 25px; color: rgba(255,255,255,0.4); font-size: 28px; cursor: pointer; }
+.modal-title { color: #FFFFFF; font-size: 22px; margin-bottom: 10px; }
+.modal-desc { font-size: 14px; color: rgba(255,255,255,0.5); margin-bottom: 24px; }
+
+@media (max-width: 992px) {
+    .detail-layout { grid-template-columns: 1fr !important; gap: 40px !important; }
+    .project-detail-section { padding: 20px 16px 80px 16px; }
+}
+/* --- СТИЛИ КНОПОК И СЧЕТЧИКА СЛАЙДЕРА КАРТИНКА/ПЛАН --- */
+
+.slide-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(15, 15, 15, 0.6) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: #FFFFFF;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    user-select: none;
+    transition: all 0.3s ease;
+}
+
+.prev-btn { left: 16px; }
+.next-btn { right: 16px; }
+
+.slide-nav-btn:hover {
+    background: var(--accent-green) !important;
+    color: #000000 !important;
+    border-color: var(--accent-green) !important;
+    box-shadow: 0 0 15px rgba(0, 230, 118, 0.4);
+}
+
+/* Счетчик слайдов в правом нижнем углу картинки */
+.slide-counter {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    background: rgba(15, 15, 17, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 6px 14px;
+    border-radius: 20px;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: 600;
+    z-index: 10;
+    letter-spacing: 0.5px;
+}
+
+/* Мобильная адаптация стрелочек */
+@media (max-width: 576px) {
+    .slide-nav-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 12px;
+    }
+    .prev-btn { left: 10px; }
+    .next-btn { right: 10px; }
+}
+/* --- СТИЛИЗАЦИЯ ССЫЛКИ-КНОПКИ ДЛЯ ОТКРЫТИЯ НОВОЙ ВКЛАДКИ --- */
+
+.btn-more-details-link {
+    display: block !important;
+    width: 100% !important;
+    background: rgba(255, 255, 255, 0.02) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--accent-green) !important;
+    color: var(--accent-green) !important;
+    padding: 18px 20px !important;
+    border-radius: 12px !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    cursor: pointer;
+    text-align: center !important;
+    text-decoration: none !important; /* Убираем дефолтное подчеркивание */
+    box-shadow: 0 4px 15px rgba(0, 230, 118, 0.05);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    margin-top: 15px !important;
+}
+
+.btn-more-details-link:hover {
+    background: var(--accent-green) !important;
+    color: #000000 !important;
+    box-shadow: 0 6px 25px rgba(0, 230, 118, 0.25) !important;
+    transform: translateY(-2px) !important;
+}
+/* --- СРОЧНЫЙ ФИКС КНОПКИ ЗАКАЗА ПРОЕКТА --- */
+
+/* Заставляем правую колонку контента не растягивать элементы по высоте */
+.detail-content-block {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    align-items: stretch !important;
+}
+
+/* Фиксируем аккуратную высоту и пропорции для главной кнопки */
+.btn-order-project {
+    width: 100% !important;
+    height: 60px !important; /* ЖЕСТКАЯ ФИКСИРОВАННАЯ ВЫСОТА КНОПКИ */
+    background: var(--accent-green) !important;
+    color: #000000 !important;
+    border: none !important;
+    padding: 0 20px !important; /* Обнулили вертикальные паддинги, теперь рулит высота height */
+    border-radius: 12px !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    box-shadow: 0 10px 30px rgba(0, 230, 118, 0.2) !important;
+    margin-top: auto !important; /* Аккуратно прижимает кнопку к низу, если контента мало */
+    transition: all 0.3s ease !important;
+}
+
+.btn-order-project:hover {
+    background: #00c864 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 15px 35px rgba(0, 230, 118, 0.35) !important;
+}
+/* Фикс позиционирования кнопки заказа внутри колонки */
+.detail-content-block {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important; /* Автоматически распределяет контент, толкая кнопку вниз */
+    align-items: stretch !important;
+    height: 100% !important;
+}
+
+.btn-order-project {
+    width: 100% !important;
+    height: 60px !important; /* Четко фиксируем её нормальную премиум-высоту */
+    margin-top: 30px !important; /* Делаем аккуратный отступ от блока документации */
+}
+
+/* --- СТРОГИЙ КОМПАКТНЫЙ СТИЛЬ ГЛАВНОЙ КНОПКИ СПРАВА --- */
+
+.btn-order-project {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    max-width: 380px !important; /* Ровный средний размер, как у ссылки выше */
+    height: 54px !important;      /* Аккуратная фиксированная высота */
+    background: var(--accent-green) !important;
+    color: #000000 !important;
+    border: none !important;
+    border-radius: 12px !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+    box-shadow: 0 8px 25px rgba(0, 230, 118, 0.15) !important;
+    transition: all 0.3s ease !important;
+}
+
+.btn-order-project:hover {
+    background: #00c864 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 12px 30px rgba(0, 230, 118, 0.25) !important;
+}
+/* =========================================================================
+   ИСПРАВЛЕННЫЙ РОСКОШНЫЙ РАЗМЫТЫЙ ФОН ДЛЯ СТРАНИЦЫ ИНФО (ЖЕСТКИЙ ФИКС)
+   ========================================================================= */
+
+.info-bg-blur {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100vw !important;  /* Намертво растягиваем на всю ширину */
+    height: 100vh !important; /* Намертво растягиваем на всю высоту экрана */
+    
+    /* Задаем базовые настройки отображения фоновой картинки */
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+    background-size: cover !important;
+    
+    /* 🔥 КРИТИЧЕСКИЙ АППАРАТНЫЙ БЛЮР И ПРИТЕМНЕНИЕ (ЧТОБЫ ТЕКСТ ЧИТАЛСЯ) */
+    filter: blur(30px) brightness(0.22) !important; 
+    -webkit-filter: blur(30px) brightness(0.22) !important; /* Фикс для Айфонов и Safari */
+    
+    transform: scale(1.15) !important; /* Увеличиваем, чтобы убрать белые засветы по краям от размытия */
+    z-index: -1 !important; /* Прячем строго НАЗАД, за текстовую карточку */
+    pointer-events: none !important; /* Чтобы мышка не цеплялась за фон */
+}
+/* =========================================================================
+   СЕТКА ДЛЯ КАРТОЧЕК
+   ========================================================================= */
+.recommendations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 20px;
+  width: 100%;
+}
+
+/* Сообщение, если проекты не найдены */
+.no-projects {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: #cccdce;
+  font-size: 16px;
+  padding: 30px;
+  background: #f7fafc;
+  border-radius: 8px;
+  border: 1px dashed #e2e8f0;
+}
+
+/* =========================================================================
+   СТИЛИ СТАНДАРТНОЙ КАРТОЧКИ (Аналог дизайна современных строительных сайтов)
+   ========================================================================= */
+.project-card {
+  background: #000000;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  border: 1px solid #4f4f4f;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Анимация карточки при наведении */
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Обертка для картинки (сохраняет пропорции 16:9) */
+.project-img-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* Пропорция 16:9 */
+  background-color: #edf2f7;
+  overflow: hidden;
+}
+
+.project-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+/* Легкий зум картинки при наведении на карточку */
+.project-card:hover .project-img {
+  transform: scale(1.05);
+}
+
+/* Контентная часть карточки */
+.project-info {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+/* Заголовок проекта */
+.project-title {
+  margin: 0 0 10px 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #babbbc;
+  line-height: 1.4;
+}
+
+/* Описание конструктива/геометрии (Дом 6х9 и т.д.) */
+.project-geo {
+  margin: 0 0 20px 0;
+  font-size: 14px;
+  color: #1d8d55;
+  line-height: 1.5;
+  flex-grow: 1; /* Прижимает футер карточки книзу, если текст разной длины */
+}
+
+/* Нижняя часть карточки (Цена + Кнопка) */
+.project-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 15px;
+  border-top: 1px solid #edf2f7;
+  gap: 10px;
+}
+
+/* Стилизация цены */
+.project-price {
+  font-size: 18px;
+  font-weight: 800;
+  color: #1d8d55; /* Спокойный синий цвет, можно заменить на ваш бренд-цвет */
+  white-space: nowrap;
+}
+
+/* Ссылка-кнопка на страницу проекта */
+.project-link {
+  display: inline-block;
+  padding: 10px 16px;
+  background-color: #1d8d55;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+  white-space: nowrap;
+}
+
+/* Кнопка при наведении */
+.project-link:hover {
+  background-color: #1d8d55;
+}
+
+/* Адаптивность для совсем маленьких экранов */
+@media (max-width: 480px) {
+  .project-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .project-link {
+    width: 100%;
+    text-align: center;
+  }
+}
+/* =========================================================================
+   КОНТЕЙНЕР КАЛЬКУЛЯТОРА
+   ========================================================================= */
+.calculator-wrapper {
+  max-width: 800px; /* Ограничиваем общую ширину для аккуратного вида */
+  margin: 0 auto;
+  padding: 20px;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* Общий класс для блоков с отступами */
+.calc-block {
+  margin-bottom: 35px;
+}
+
+.calc-label {
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  color: #282828;
+  margin-bottom: 15px;
+}
+
+/* =========================================================================
+   СТИЛИ ДЛЯ КНОПОК ТИПА СТРОЕНИЯ (Дом / Баня)
+   ========================================================================= */
+.calc-tabs {
+  display: flex;
+  gap: 12px;
+}
+
+.calc-type-btn {
+  flex: 1; /* Кнопки делят место поровну */
+  max-width: 200px;
+  padding: 14px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #242424;
+  background-color: #f7fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-align: center;
+}
+
+/* Эффект при наведении */
+.calc-type-btn:hover {
+  border-color: #cbd5e0;
+  background-color: #edf2f7;
+}
+
+/* Активное состояние кнопки (Выбрано) */
+.calc-type-btn.active {
+  color: #ffffff;
+  background-color: #1d8d55; /* Фирменный синий */
+  border-color: #272727;
+  box-shadow: 0 4px 12px rgba(49, 130, 206, 0.25);
+}
+
+/* =========================================================================
+   СТИЛИ ДЛЯ ПОЛЗУНКА ПЛОЩАДИ (Сделать длиннее и крупнее)
+   ========================================================================= */
+.range-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* Ползунок занимает всю ширину родителя */
+}
+
+.range-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* Вывод текущего значения площади */
+#calcAreaValue {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1d8d55;
+  background: #222222;
+  padding: 4px 12px;
+  border-radius: 6px;
+}
+
+/* Кастомизация самой полосы ползунка */
+input[type="range"]#calcAreaRange {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%; /* Растягиваем во всю длину */
+  height: 8px; /* Чуть толще стандартного */
+  border-radius: 4px;
+  background: #191818;
+  outline: none;
+  margin: 15px 0;
+  cursor: pointer;
+}
+
+/* Кастомизация бегунка (кружка) для Chrome, Safari, Opera, Edge */
+input[type="range"]#calcAreaRange::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px; /* Крупный, чтобы легко попадать пальцем */
+  height: 24px;
+  border-radius: 50%;
+  background: #1d8d55;
+  border: 4px solid #969696; /* Белый ободок */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.1s ease, background-color 0.2s ease;
+}
+
+/* Увеличение бегунка при зажатии/наведении */
+input[type="range"]#calcAreaRange::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  background: #1d8d55;
+}
+
+/* Кастомизация бегунка для Firefox */
+input[type="range"]#calcAreaRange::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #1d8d55;
+  border: 4px solid #2b2b2b;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.1s ease;
+  cursor: pointer;
+}
+
+input[type="range"]#calcAreaRange::-moz-range-thumb:hover {
+  transform: scale(1.15);
+}
+/* =========================================================================
+   1. СЕТКА ДЛЯ ВАРИАНТОВ ВЫБОРА (Шаг 1)
+   ========================================================================= */
+.calc-options-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 15px;
+}
+
+/* Карточка опции (label) */
+.calc-option {
+  position: relative;
+  cursor: pointer;
+  display: block;
+}
+
+/* Скрываем стандартный круглый радио-кружок, так как у вас кастомная верстка */
+.calc-option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* Базовый стиль вашей плашки с текстом (изнутри div) */
+.option-custom-box {
+  background: #1a1a1a; /* Темный фон карточки */
+  border: 1px solid #333333; /* Серая рамка по умолчанию */
+  color: #a0aec0; /* Цвет текста */
+  padding: 16px 20px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  text-align: center;
+  transition: all 0.25s ease;
+  user-select: none;
+}
+
+/* Эффект при наведении мыши на карточку */
+.calc-option:hover .option-custom-box {
+  border-color: #4a5568;
+  color: #ffffff;
+  background: #222222;
+}
+
+/* СТИЛЬ ДЛЯ ВЫБРАННОГО ВАРИАНТА (Когда радиокнопка отмечена) */
+.calc-option input[type="radio"]:checked + .option-custom-box {
+  border-color: #38a169; /* Зеленая рамка как на скрине */
+  color: #ffffff;
+  background: rgba(56, 161, 105, 0.08); /* Легкий зеленый фон внутри */
+  box-shadow: 0 0 12px rgba(56, 161, 105, 0.2);
+}
+
+/* =========================================================================
+   2. СТИЛИ ДЛЯ ПОЛЗУНКА ПЛОЩАДИ (Шаг 2)
+   ========================================================================= */
+.range-container {
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* Ползунок-линия */
+input[type="range"]#calcAreaRange {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  background: #2d3748; /* Темный трек ползунка */
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+}
+
+/* Бегунок (кружок) для Chrome, Safari, Opera */
+input[type="range"]#calcAreaRange::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #38a169; /* Зеленый кружок под ваш стиль */
+  box-shadow: 0 0 8px rgba(56, 161, 105, 0.5);
+  transition: transform 0.1s ease;
+}
+
+input[type="range"]#calcAreaRange::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+/* Бегунок для Firefox */
+input[type="range"]#calcAreaRange::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: none;
+  border-radius: 50%;
+  background: #38a169;
+  box-shadow: 0 0 8px rgba(56, 161, 105, 0.5);
+  transition: transform 0.1s ease;
+  cursor: pointer;
+}
+
+input[type="range"]#calcAreaRange::-moz-range-thumb:hover {
+  transform: scale(1.2);
+}
+
+/* Зеленый индикатор метража "151 м²" */
+#calcAreaValue {
+  display: inline-block;
+  background: rgba(56, 161, 105, 0.15);
+  color: #38a169;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 16px;
+  margin-top: 10px;
+  border: 1px solid rgba(56, 161, 105, 0.3);
+}
+
+/* 1. Обертка для всех чекбоксов — выстраивает их в один горизонтальный ряд */
+.calc-extras-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+/* 2. Контейнер чекбокса (тег label) */
+.calc-extra-option {
+  position: relative;
+  cursor: pointer;
+  display: block;
+}
+
+/* 3. Скрываем стандартный дефолтный квадратик чекбокса */
+.calc-extra-option input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* 4. Кастомный внешний вид кнопки пристройки по умолчанию */
+.extra-custom-box {
+  background: #141414; /* Темный фон под стиль сайта */
+  border: 1px solid #262626; /* Серая рамка */
+  color: #a0aec0; /* Светло-серый текст */
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  transition: all 0.25s ease;
+  user-select: none;
+}
+
+/* 5. Эффект при наведении мыши на кнопку пристройки */
+.calc-extra-option:hover .extra-custom-box {
+  border-color: #4a5568;
+  color: #ffffff;
+  background: #1a1a1a;
+}
+
+/* 6. СОСТОЯНИЕ АКТИВАЦИИ: рамка загорается зеленым, когда чекбокс выбран */
+.calc-extra-option input[type="checkbox"]:checked + .extra-custom-box {
+  border-color: #38a169; /* Зеленый цвет рамки */
+  color: #ffffff;
+  background: rgba(56, 161, 105, 0.08); /* Легкий зеленый оттенок внутри */
+  box-shadow: 0 0 12px rgba(56, 161, 105, 0.2); /* Свечение вокруг кнопки */
+}
+.calc-contact-form {
+  background: #141414;
+  border: 1px solid #262626;
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-label {
+  display: block;
+  color: #a0aec0;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px 14px;
+  background: #1a1a1a;
+  border: 1px solid #262626;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 15px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.form-input:focus {
+  border-color: #38a169;
+}
+
+.form-submit-btn {
+  width: 100%;
+  padding: 12px;
+  background: #38a169;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.form-submit-btn:hover {
+  background: #2f855a;
+}
+/* Общая обертка инфы и карты */
+.contacts-section-wrapper {
+  display: flex;
+  gap: 40px; /* Отступ между текстом и картой */
+  margin-top: 30px;
+  align-items: stretch;
+  width: 100%;
+}
+
+/* Левая колонка с текстом */
+.contacts-info-column {
+  flex: 1; /* Занимает половину места */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Каждая строчка (Телефон, Адрес...) */
+.contact-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.contact-label {
+  color: #4a5568; /* Темно-серый подзаголовок */
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.contact-value {
+  color: #ffffff; /* Белый основной текст */
+  font-size: 16px;
+  margin: 0;
+  text-decoration: none;
+}
+
+/* Правая колонка с картой */
+.contacts-map-column {
+  flex: 1; /* Занимает вторую половину места */
+  min-height: 300px; /* Фиксированная высота карты */
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #262626;
+}
+
+/* Адаптивность для мобильных телефонов */
+@media (max-width: 768px) {
+  .contacts-section-wrapper {
+    flex-direction: column; /* На смартфонах карта упадет под текст, как положено */
+    gap: 25px;
+  }
+  .contacts-map-column {
+    height: 250px; /* Чуть уменьшаем карту на экранах телефонов */
+  }
+}
+/* Обновленная высота для правой колонки с картой */
+.feedback-right-map-column {
+  position: relative;
+  width: 100%;
+  height: 400px; /* Карта будет выглядеть аккуратнее в узкой колонке */
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #262626;
+  background: #141414;
+}
+/* Главный контейнер всей секции обратной связи */
+.main-feedback-section {
+  max-width: 1200px;
+  margin: 60px auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+/* Оформление верхнего текстового блока */
+.feedback-header-block {
+  margin-bottom: 40px;
+}
+
+.feedback-subtitle {
+  color: #38a169;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.feedback-main-title {
+  color: #ffffff;
+  font-size: 32px;
+  font-weight: 800;
+  margin: 0 0 15px 0;
+}
+
+.feedback-description {
+  color: #a0aec0;
+  font-size: 15px;
+  max-width: 600px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ДВУХКОЛОНОЧНЫЙ ГРИД: Делит пространство на две равные половины */
+.feedback-grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Ровно 50% на анкету и 50% на карту */
+  gap: 50px; /* Безопасный отступ между колонками */
+  align-items: stretch; /* Карта автоматически растянется по высоте левой колонки */
+}
+
+/* Левая колонка (Форма + Контакты под ней) */
+.feedback-left-column {
+  width: 100%;
+}
+
+.text-contacts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contact-text-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.contact-text-label {
+  color: #4a5568;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.contact-text-value {
+  color: #ffffff;
+  font-size: 15px;
+  margin: 0;
+  text-decoration: none;
+  line-height: 1.4;
+}
+
+/* Правая колонка с картой */
+.feedback-right-map-column {
+  position: relative;
+  width: 100%;
+  min-height: 400px; /* Минимальная базовая высота для карты */
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #262626;
+  background: #141414;
+}
+
+/* Растягиваем сам фрейм Яндекса на всю ширину и высоту правой колонки */
+.feedback-right-map-column .yandex-page-map {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  border: none;
+}
+
+/* Адаптивность: на телефонах (меньше 850px) перестраиваем в один столбец */
+@media (max-width: 850px) {
+  .feedback-grid-container {
+    grid-template-columns: 1fr; 
+    gap: 30px;
+  }
+  .feedback-right-map-column {
+    height: 300px; /* На смартфонах карта упадет под контакты и уменьшится */
+  }
+}

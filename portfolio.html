@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Портфолио проектов — СК ВАШ ДОМ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="portfolio-page-body dark-theme">
+
+    <!-- Закрепленная премиальная шапка из плотного стекла -->
+    <header class="header-glass dark-version">
+        <div class="logo"><a href="index.html" class="logo-link">СК ВАШ ДОМ</a></div>
+        <nav class="navigation">
+            <a href="index.html#catalog" class="nav-link">Каталог</a>
+            <a href="about.html" class="nav-link">О нас</a>
+            <a href="portfolio.html" class="nav-link active">Портфолио</a>
+            <a href="index.html#contacts" class="nav-link">Контакты</a>
+        </nav>
+               <!-- 🔥 Прямой клик для страницы портфолио -->
+       <!-- Автономный клик для страницы портфолио -->
+<div class="burger-menu" id="burgerToggle" onclick="this.classList.toggle('active'); document.querySelector('.navigation').classList.toggle('active'); event.stopPropagation();">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+</div>
+
+
+        <a href="https://vk.ru/sk.vashdom"><button class="btn-primary">Консультация</button></a>
+    </header>
+
+    <!-- Главный заголовок и кнопки фильтрации -->
+    <section class="portfolio-hero">
+        <div class="portfolio-container">
+            <div class="portfolio-badge">Построенные объекты</div>
+            <h1 class="portfolio-main-title">Реализованные<br><span class="accent-green-text">архитектурные</span> решения</h1>
+            
+                        <!-- Обновленные табы мгновенной сортировки -->
+            <div class="portfolio-filters">
+                <button class="filter-btn active" data-filter="all">Все объекты</button>
+                <button class="filter-btn" data-filter="BATH">Проект Бани</button>
+                <button class="filter-btn" data-filter="S">Проект "S"</button>
+                <button class="filter-btn" data-filter="M">Проект "M"</button>
+                <button class="filter-btn" data-filter="L">Проект "L"</button>
+                <button class="filter-btn" data-filter="XL">Проект "XL"</button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Сетка портфолио (JS автоматически выведет сюда дома) -->
+    <section class="portfolio-grid-section">
+        <div class="portfolio-container">
+            <div class="portfolio-grid" id="portfolioGrid"></div>
+            
+            <!-- Управляющая кнопка подгрузки -->
+            <div class="portfolio-load-more-container" id="loadMoreContainer">
+                <button class="btn-load-more" id="loadMoreBtn">Показать ещё проекты</button>
+            </div>
+        </div>
+    </section>
+    <!-- Панель управления портфолио (Админка) -->
+    <section class="admin-panel-section">
+        <div class="portfolio-container">
+            <div class="admin-glass-box">
+                <h2 class="admin-title">Панель управления портфолио (Админка)</h2>
+                <p class="admin-desc">Быстрое добавление нового построенного объекта в общую базу сайта без кодинга.</p>
+                
+                <form id="adminAddForm" class="admin-form">
+                    <div class="admin-form-grid">
+                        <input type="text" id="adminPrice" placeholder="Цена (н-р: 1 290 000 ₽)" required>
+                        <input type="text" id="adminName" placeholder="Название (н-р: Вилла «Sky»)" required>
+                        <input type="text" id="adminArea" placeholder="Площадь (н-р: 350 м²)" required>
+                        <input type="text" id="adminGeo" placeholder="Локация (н-р: Новая Рига)" required>
+                        <input type="text" id="adminImg" placeholder="Ссылка на фото (URL)" required>
+                        
+                        <select id="adminCategory" required>
+                            <option value="" disabled selected>Выберите категорию</option>
+                            <option value="BATH">Проект Бани</option>
+                            <option value="S">'Проект "S"</option>
+                            <option value="M">Проект "M"</option>
+                            <option value="L">Проект "L"</option>
+                            <option value="XL">Проект "XL"</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-admin-submit">+ Добавить дом в портфолио</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Чистый, зафиксированный подвал без текстовых хвостов -->
+      <!-- Подвал сайта со скрытым входом для владельца -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <!-- Клик по слову "2026" вызовет окно ввода пароля владельца -->
+            <p class="footer-copy">&copy; <span id="secretAdminLogin" style="cursor: default; user-select: none;">2026</span> СК ВАШ ДОМ. Все права защищены. Строительство премиум-класса.</p>
+        </div>
+    </footer>
+
+
+    <!-- Подключение логики -->
+    <script src="script.js"></script>
+</body>
+</html>
